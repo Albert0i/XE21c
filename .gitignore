@@ -4,3 +4,4 @@
 
 # Ignore data directories
 /oracle_data
+/data
