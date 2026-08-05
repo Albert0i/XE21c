@@ -1,0 +1,19 @@
+
+# ==========================================
+# ORACLE XE 21c SERVER SETTINGS
+# ==========================================
+
+# 1. DATABASE ACCESS PASSWORD
+# Set password for 'SYS' and 'SYSTEM' administrator accounts.
+# Choose letters and numbers. Avoid spaces and special symbols.
+ORACLE_ROOT_PASSWORD=123456
+
+# 2. DOCKER CONTAINER NAME
+# Sets the identifier name for your running database service.
+# Used by your Makefile to target the container during health tests.
+ORACLE_CONTAINER_NAME=oracle-xe21c
+
+# 3. DATA STORAGE REPOSITORY
+# Folder location on your hard drive to permanently save schemas.
+# Keeps your data safe from erasure when containers reboot.
+ORACLE_DATA_DIR=./oracle_data

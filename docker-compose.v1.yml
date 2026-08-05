@@ -1,0 +1,13 @@
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:21
+    container_name: ${ORACLE_CONTAINER_NAME}
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=${ORACLE_ROOT_PASSWORD}
+    volumes:
+      - ${ORACLE_DATA_DIR}:/opt/oracle/oradata
+      # ADD THIS LINE BELOW to map your initialization script safely
+      - ./init.sql:/container-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
