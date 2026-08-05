@@ -1,6 +1,6 @@
 services:
   oracle-db:
-    image: gvenzl/oracle-xe:21
+    image: ${ORACLE_IMAGE_NAME}
     container_name: ${ORACLE_CONTAINER_NAME}
     ports:
       - "1521:1521"
