@@ -8,7 +8,7 @@
 #    https://hub.docker.com/r/gvenzl/oracle-xe
 ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
 
-#    Oracle AI Database 26ai Free Container Image Documentation   
+#    Oracle AI Database 26ai Free Container Image
 #    https://www.oracle.com/database/free/
 # ORACLE_IMAGE_NAME=container-registry.oracle.com/database/free:23.26.2.0
 # ORACLE_IMAGE_NAME=container-registry.oracle.com/database/free:23.26.2.0-lite
