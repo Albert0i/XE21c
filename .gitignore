@@ -3,5 +3,5 @@
 .env
 
 # Ignore data directories
-/oracle_data
-/data
+./oracle_data
+./data
