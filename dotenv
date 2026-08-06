@@ -1,12 +1,12 @@
-
 # ==========================================
 # ORACLE XE 21c SERVER SETTINGS
 # ==========================================
 
 # 1. DATABASE IMAGE NAME
-#    gvenzl/oracle-xe
+#    Oracle Database Express Edition (XE)
 #    https://hub.docker.com/r/gvenzl/oracle-xe
-ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-full
+#ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
 
 #    Oracle AI Database 26ai Free Container Image
 #    https://www.oracle.com/database/free/
@@ -17,13 +17,21 @@ ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
 # Set password for 'SYS' and 'SYSTEM' administrator accounts.
 # Choose letters and numbers. Avoid spaces and special symbols.
 ORACLE_ROOT_PASSWORD=123456
+# To create a new pluggable database with the name specified.
+ORACLE_DATABASE=mypdb
 
 # 3. DOCKER CONTAINER NAME
-# Sets the identifier name for your running database service.
+# Identifier name for your running database service.
 # Used by your Makefile to target the container during health tests.
-ORACLE_CONTAINER_NAME=oracle-xe21c
+ORACLE_CONTAINER_NAME=oracle-db
 
 # 4. DATA STORAGE REPOSITORY
 # Folder location on your hard drive to permanently save schemas.
 # Keeps your data safe from erasure when containers reboot.
 ORACLE_DATA_DIR=./oracle_data
+
+# 5. APPLICATION USER
+# Non-admin account for your apps to connect safely.
+# Change these values to secure credentials.
+ORACLE_APP_USER=my_user
+ORACLE_APP_USER_PASSWORD=my_password

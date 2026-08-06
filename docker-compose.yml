@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   oracle-db:
     image: ${ORACLE_IMAGE_NAME}
@@ -5,9 +7,18 @@ services:
     ports:
       - "1521:1521"
     environment:
-      - ORACLE_PASSWORD=${ORACLE_ROOT_PASSWORD}
+      ORACLE_PASSWORD: ${ORACLE_ROOT_PASSWORD}
+      ORACLE_DATABASE: ${ORACLE_DATABASE}
+      APP_USER: ${ORACLE_APP_USER}
+      APP_USER_PASSWORD: ${ORACLE_APP_USER_PASSWORD}
     volumes:
       - ${ORACLE_DATA_DIR}:/opt/oracle/oradata
-      # ADD THIS LINE BELOW to map your initialization script safely
+      # Map your initialization script safely
       - ./init.sql:/container-entrypoint-initdb.d/init.sql:ro
     restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
