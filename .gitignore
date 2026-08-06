@@ -1,7 +1,6 @@
-
 # Keep environment variables out of version control
 .env
 
 # Ignore data directories
-./oracle_data
-./data
+oracle_data/
+data/
