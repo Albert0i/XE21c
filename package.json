@@ -1,0 +1,28 @@
+{
+  "name": "xe21c",
+  "version": "1.0.0",
+  "description": "A production-grade, single-command orchestration suite that deploys an Oracle Database Express Edition (XE) 21c instance bundled alongside an isolated, non-conflicting performance monitoring environment (Prometheus, Grafana, and an Oracle Database Metrics Exporter).",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Albert0i/XE21c.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Albert0i/XE21c/issues"
+  },
+  "homepage": "https://github.com/Albert0i/XE21c#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "dotenv": "^17.4.2"
+  }
+}

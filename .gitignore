@@ -4,3 +4,6 @@
 # Ignore data directories
 oracle_data/
 data/
+
+# Ignore Node.js dependencies
+node_modules/
