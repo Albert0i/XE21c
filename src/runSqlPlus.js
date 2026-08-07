@@ -1,7 +1,6 @@
+import 'dotenv/config';
 import { spawn } from "child_process";
 import dotenv from "dotenv";
-
-dotenv.config();
 
 // Pick which user you want to connect with
 const user = process.env.TARGET_ORACLEDB_USER || process.env.ORACLE_APP_USER;
