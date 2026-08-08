@@ -3,15 +3,17 @@ import { spawn } from "child_process";
 import dotenv from "dotenv";
 
 // Pick which user you want to connect with
-const user = process.env.TARGET_ORACLEDB_USER || process.env.ORACLE_APP_USER;
-const password = process.env.TARGET_ORACLEDB_PASSWORD || process.env.ORACLE_APP_USER_PASSWORD;
-const connectString = process.env.TARGET_ORACLEDB_CONNECTIONSTRING || process.env.ORACLE_DATABASE;
+const user = process.env.ORACLE_APP_USER;
+const password = process.env.ORACLE_APP_USER_PASSWORD;
+const host = process.env.ORACLE_HOST || 'localhost'; 
+const port = process.env.ORACLE_PORT || 1521; 
+const database = process.env.ORACLE_DATABASE || 'XEPDB1';
 
 // Build sqlplus command
-const conn = `${user}/${password}@localhost:1521/${connectString}`;
-console.log('conn =', conn)
-// sqlplus myusername/mypassword@Host/ORCL
-console.log("Launching SQL*Plus with:", conn);
+const conn = `${user}/${password}@${host}:${port}/${database}`;
+
+// sqlplus myusername/mypassword@Host:port/ORCL
+console.log(`Launching SQL*Plus with: '${conn}'`);
 
 const sqlplus = spawn("sqlplus", [conn], { stdio: "inherit" });
 

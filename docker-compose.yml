@@ -1,11 +1,11 @@
-version: "3.9"
+#version: "3.8"
 
 services:
   oracle-db:
     image: ${ORACLE_IMAGE_NAME}
     container_name: ${ORACLE_CONTAINER_NAME}
     ports:
-      - "1521:1521"
+      - "${ORACLE_PORT}:1521"
     environment:
       ORACLE_PASSWORD: ${ORACLE_ROOT_PASSWORD}
       ORACLE_DATABASE: ${ORACLE_DATABASE}
