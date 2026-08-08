@@ -32,6 +32,11 @@ const testConnection = async (config) => {
     );
     if (result.success) {
       console.log(`Connection OK:`, result.rows[0]);
+
+      const banner = await runner.runSelectSQL(
+        "select banner from v$version"
+      )
+      console.log(banner.rows[0].BANNER);
     } else {
       console.error(`Connection FAILED:`, result.message);
     }
