@@ -24,43 +24,34 @@ oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
     → Number of rows inserted into SQLite per transaction.
 */
 
-const testConnection = async (label, config) => {
+const testConnection = async (config) => {
   const runner = createRunner(config);
   try {
     const result = await runner.runSelectSQL(
       "SELECT sys_context('USERENV','DB_NAME') AS db_name, user AS current_user FROM dual"
     );
     if (result.success) {
-      console.log(`${label} connection OK:`, result.rows[0]);
+      console.log(`Connection OK:`, result.rows[0]);
     } else {
-      console.error(`${label} connection FAILED:`, result.message);
+      console.error(`Connection FAILED:`, result.message);
     }
   } catch (err) {
-    console.error(`${label} connection ERROR:`, err);
+    console.error(`$Connection ERROR:`, err);
   }
 };
+const host = process.env.ORACLE_HOST || 'localhost'; 
+const port = process.env.ORACLE_PORT || 1521; 
+const database = process.env.ORACLE_DATABASE || 'XEPDB1';
 
-const sourceConfig = createDbConfig({
-  user: process.env.SOURCE_ORACLEDB_USER,
-  password: process.env.SOURCE_ORACLEDB_PASSWORD,
-  connectString: process.env.SOURCE_ORACLEDB_CONNECTIONSTRING
-});
-
-const targetConfig = createDbConfig({
-  user: process.env.TARGET_ORACLEDB_USER,
-  password: process.env.TARGET_ORACLEDB_PASSWORD,
-  connectString: process.env.TARGET_ORACLEDB_CONNECTIONSTRING
+const config = createDbConfig({
+  user: process.env.ORACLE_APP_USER,
+  password: process.env.ORACLE_APP_USER_PASSWORD,
+  // oracle-dev-scan/pdbdev_srv
+  connectString: `${host}:${port}/${database}`
 });
 
 (async () => {
   // Show Oracle connections
-  await testConnection("SOURCE", sourceConfig);
-  await testConnection("TARGET", targetConfig);
-
-  // Show new .env parameters
-  console.log()
-  console.log("SQLite DATABASE:", process.env.DATABASE);
-  console.log("DB_FAST_MODE:", process.env.DB_FAST_MODE);
-  console.log("READ_BATCH_SIZE:", process.env.READ_BATCH_SIZE || "1000 (default)");
-  console.log("WRITE_BATCH_SIZE:", process.env.WRITE_BATCH_SIZE || "1000 (default)");
+  console.log('conig =', config)
+  await testConnection(config);
 })();

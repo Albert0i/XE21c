@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node src/testConn.js",
     "sql": "node src/runSqlPlus.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Albert0i/XE21c#readme",
   "dependencies": {
     "child_process": "^1.0.2",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "oracledb": "^7.0.1"
   }
 }

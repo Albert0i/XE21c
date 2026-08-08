@@ -1,7 +1,7 @@
 --
 -- load_sample.sql
 -- The source code for the load_sample.sql is:
--- https://download.oracle.com/oll/tutorials/DBXETutorial/html/module2/les02_load_data_sql.htm
+-- https:download.oracle.comolltutorialsDBXETutorialhtmlmodule2les02_load_data_sql.htm
 
 -- ********************************************************************
 -- Create the REGIONS table to hold region information for locations
@@ -2382,13 +2382,13 @@ COMMIT;
    'You may only make changes during normal office hours');
    END IF;
    END secure_dml;
-   /
+   
 CREATE OR REPLACE TRIGGER secure_employees
    BEFORE INSERT OR UPDATE OR DELETE ON employees
    BEGIN
    secure_dml;
    END secure_employees;
-   /
+   
 ALTER TRIGGER secure_employees DISABLE;
 
 -- **************************************************************************
@@ -2409,7 +2409,7 @@ CREATE OR REPLACE PROCEDURE add_job_history
    job_id, department_id)
    VALUES(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
    END add_job_history;
-   /
+   
 CREATE OR REPLACE TRIGGER update_job_history
    AFTER UPDATE OF job_id, department_id ON employees
    FOR EACH ROW
@@ -2417,7 +2417,7 @@ CREATE OR REPLACE TRIGGER update_job_history
    add_job_history(:old.employee_id, :old.hire_date, sysdate, 
    :old.job_id, :old.department_id);
    END;
-   /
+   
 COMMIT;
 COMMENT ON TABLE regions 
          IS 'Regions table that contains region numbers and names. Contains 4 rows; references with the Countries table.';
@@ -2427,7 +2427,7 @@ COMMENT ON COLUMN regions.region_name
          IS 'Names of regions. Locations are in the countries of these regions.';
 COMMENT ON TABLE locations
          IS 'Locations table that contains specific address of a specific office,
-         warehouse, and/or production site of a company. Does not store addresses /
+         warehouse, andor production site of a company. Does not store addresses 
          locations of customers. Contains 23 rows; references with the
          departments and countries tables. ';
 COMMENT ON COLUMN locations.location_id
