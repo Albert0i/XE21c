@@ -1,12 +1,14 @@
---
--- load_sample.sql
--- The source code for the load_sample.sql is:
--- https:download.oracle.comolltutorialsDBXETutorialhtmlmodule2les02_load_data_sql.htm
+REM ********************************************************************
+REM Create the REGIONS table to hold region information for locations
+REM HR.LOCATIONS table has a foreign key to this table.
+REM
+REM https://download.oracle.com/oll/tutorials/DBXETutorial/html/module2/les02_load_data_sql.htm
+REM 
+REM Load with "@sample/load_sample.sql" in SQLPlus
+REM 
 
--- ********************************************************************
--- Create the REGIONS table to hold region information for locations
--- HR.LOCATIONS table has a foreign key to this table.
-       
+ALTER SESSION SET current_schema=albertoi;
+
 CREATE TABLE regions
    ( region_id NUMBER 
    CONSTRAINT region_id_nn NOT NULL 
@@ -18,11 +20,10 @@ ALTER TABLE regions
          ADD ( CONSTRAINT reg_id_pk
    PRIMARY KEY (region_id)
    ) ;
-
--- ********************************************************************
--- Create the COUNTRIES table to hold country information for customers
--- and company locations. 
--- OE.CUSTOMERS table and HR.LOCATIONS have a foreign key to this table.
+REM ********************************************************************
+REM Create the COUNTRIES table to hold country information for customers
+REM and company locations. 
+REM OE.CUSTOMERS table and HR.LOCATIONS have a foreign key to this table.
        
 CREATE TABLE countries 
    ( country_id CHAR(2) 
@@ -38,10 +39,9 @@ ALTER TABLE countries
    FOREIGN KEY (region_id)
    REFERENCES regions(region_id) 
    ) ;
-
--- ********************************************************************
--- Create the LOCATIONS table to hold address information for company departments.
--- HR.DEPARTMENTS has a foreign key to this table.
+REM ********************************************************************
+REM Create the LOCATIONS table to hold address information for company departments.
+REM HR.DEPARTMENTS has a foreign key to this table.
        
 CREATE TABLE locations
    ( location_id NUMBER(4)
@@ -61,18 +61,17 @@ ALTER TABLE locations
    FOREIGN KEY (country_id)
    REFERENCES countries(country_id) 
    ) ;
--- Useful for any subsequent addition of rows to locations table
--- Starts with 3300
+Rem Useful for any subsequent addition of rows to locations table
+Rem Starts with 3300
 CREATE SEQUENCE locations_seq
    START WITH 3300
-   INC--ENT BY 100
+   INCREMENT BY 100
    MAXVALUE 9900
    NOCACHE
    NOCYCLE;
-
--- ********************************************************************
--- Create the DEPARTMENTS table to hold company department information.
--- HR.EMPLOYEES and HR.JOB_HISTORY have a foreign key to this table.
+REM ********************************************************************
+REM Create the DEPARTMENTS table to hold company department information.
+REM HR.EMPLOYEES and HR.JOB_HISTORY have a foreign key to this table.
        
 CREATE TABLE departments
    ( department_id NUMBER(4)
@@ -90,18 +89,17 @@ ALTER TABLE departments
    FOREIGN KEY (location_id)
    REFERENCES locations (location_id)
    ) ;
--- Useful for any subsequent addition of rows to departments table
--- Starts with 280 
+Rem Useful for any subsequent addition of rows to departments table
+Rem Starts with 280 
 CREATE SEQUENCE departments_seq
    START WITH 280
-   INC--ENT BY 10
+   INCREMENT BY 10
    MAXVALUE 9990
    NOCACHE
    NOCYCLE;
-   
--- ********************************************************************
--- Create the JOBS table to hold the different names of job roles within the company.
--- HR.EMPLOYEES has a foreign key to this table.
+REM ********************************************************************
+REM Create the JOBS table to hold the different names of job roles within the company.
+REM HR.EMPLOYEES has a foreign key to this table.
        
 CREATE TABLE jobs
    ( job_id VARCHAR2(10)
@@ -116,11 +114,10 @@ ALTER TABLE jobs
          ADD ( CONSTRAINT job_id_pk
    PRIMARY KEY(job_id)
    ) ;
-   
--- ********************************************************************
--- Create the EMPLOYEES table to hold the employee personnel 
--- information for the company.
--- HR.EMPLOYEES has a self referencing foreign key to this table.
+REM ********************************************************************
+REM Create the EMPLOYEES table to hold the employee personnel 
+REM information for the company.
+REM HR.EMPLOYEES has a self referencing foreign key to this table.
        
 CREATE TABLE employees
    ( employee_id NUMBER(6)
@@ -165,19 +162,18 @@ ALTER TABLE departments
    REFERENCES employees (employee_id)
    ) ;
        
--- Useful for any subsequent addition of rows to employees table
--- Starts with 207 
+Rem Useful for any subsequent addition of rows to employees table
+REM Starts with 207 
        
 CREATE SEQUENCE employees_seq
    START WITH 207
-   INC--ENT BY 1
+   INCREMENT BY 1
    NOCACHE
    NOCYCLE;
-   
--- ********************************************************************
--- Create the JOB_HISTORY table to hold the history of jobs that 
--- employees have held in the past.
--- HR.JOBS, HR_DEPARTMENTS, and HR.EMPLOYEES have a foreign key to this table.
+REM ********************************************************************
+REM Create the JOB_HISTORY table to hold the history of jobs that 
+REM employees have held in the past.
+REM HR.JOBS, HR_DEPARTMENTS, and HR.EMPLOYEES have a foreign key to this table.
        
 CREATE TABLE job_history
    ( employee_id NUMBER(6)
@@ -207,11 +203,10 @@ ALTER TABLE job_history
    FOREIGN KEY (department_id)
    REFERENCES departments
    ) ;
-   
--- ********************************************************************
--- Create the EMP_DETAILS_VIEW that joins the employees, jobs, 
--- departments, jobs, countries, and locations table to provide details
--- about employees.
+REM ********************************************************************
+REM Create the EMP_DETAILS_VIEW that joins the employees, jobs, 
+REM departments, jobs, countries, and locations table to provide details
+REM about employees.
        
 CREATE OR REPLACE VIEW emp_details_view
    (employee_id,
@@ -263,8 +258,7 @@ CREATE OR REPLACE VIEW emp_details_view
  
 COMMIT;
 ALTER SESSION SET NLS_LANGUAGE=American; 
-
--- ***************************insert data into the REGIONS table
+REM ***************************insert data into the REGIONS table
 INSERT INTO regions VALUES 
    ( 1
    , 'Europe' 
@@ -281,8 +275,7 @@ INSERT INTO regions VALUES
    ( 4
    , 'Middle East and Africa' 
    );
-   
--- ***************************insert data into the COUNTRIES table
+REM ***************************insert data into the COUNTRIES table
 INSERT INTO countries VALUES 
    ( 'IT'
    , 'Italy'
@@ -409,7 +402,7 @@ INSERT INTO countries VALUES
    , 1 
    );
        
--- ***************************insert data into the LOCATIONS table       
+REM ***************************insert data into the LOCATIONS table       
 INSERT INTO locations VALUES 
    ( 1000 
    , '1297 Via Cola di Rie'
@@ -595,8 +588,8 @@ INSERT INTO locations VALUES
    , 'MX'
    );
        
--- ****************************insert data into the DEPARTMENTS table
--- disable integrity constraint to EMPLOYEES to load data
+REM ****************************insert data into the DEPARTMENTS table
+REM disable integrity constraint to EMPLOYEES to load data
 ALTER TABLE departments 
    DISABLE CONSTRAINT dept_mgr_fk;
 INSERT INTO departments VALUES 
@@ -769,7 +762,7 @@ INSERT INTO departments VALUES
    , 1700
    );
        
--- ***************************insert data into the JOBS table
+REM ***************************insert data into the JOBS table
 INSERT INTO jobs VALUES 
    ( 'AD_PRES'
    , 'President'
@@ -885,7 +878,7 @@ INSERT INTO jobs VALUES
    , 10500
    );
        
--- ***************************insert data into the EMPLOYEES table
+REM ***************************insert data into the EMPLOYEES table
 INSERT INTO employees VALUES 
    ( 100
    , 'Steven'
@@ -2277,7 +2270,7 @@ INSERT INTO employees VALUES
    , 205
    , 110
    );
--- ********* insert data into the JOB_HISTORY table
+REM ********* insert data into the JOB_HISTORY table
        
 INSERT INTO job_history
          VALUES (102
@@ -2345,7 +2338,7 @@ INSERT INTO job_history
    , 'AC_ACCOUNT'
    , 90
    );
--- enable integrity constraint to DEPARTMENTS
+REM enable integrity constraint to DEPARTMENTS
 ALTER TABLE departments 
    ENABLE CONSTRAINT dept_mgr_fk;
 COMMIT;
@@ -2372,7 +2365,7 @@ CREATE INDEX loc_state_province_ix
 CREATE INDEX loc_country_ix
    ON locations (country_id);
 COMMIT;
--- procedure and statement trigger to allow dmls during business hours:
+REM procedure and statement trigger to allow dmls during business hours:
          CREATE OR REPLACE PROCEDURE secure_dml
          IS
          BEGIN
@@ -2382,20 +2375,18 @@ COMMIT;
    'You may only make changes during normal office hours');
    END IF;
    END secure_dml;
-   
+   /
 CREATE OR REPLACE TRIGGER secure_employees
    BEFORE INSERT OR UPDATE OR DELETE ON employees
    BEGIN
    secure_dml;
    END secure_employees;
-   
+   /
 ALTER TRIGGER secure_employees DISABLE;
-
--- **************************************************************************
--- procedure to add a row to the JOB_HISTORY table and row trigger 
--- to call the procedure when data is updated in the job_id or 
--- department_id columns in the EMPLOYEES table:
-
+REM **************************************************************************
+REM procedure to add a row to the JOB_HISTORY table and row trigger 
+REM to call the procedure when data is updated in the job_id or 
+REM department_id columns in the EMPLOYEES table:
 CREATE OR REPLACE PROCEDURE add_job_history
    ( p_emp_id job_history.employee_id%type
    , p_start_date job_history.start_date%type
@@ -2409,7 +2400,7 @@ CREATE OR REPLACE PROCEDURE add_job_history
    job_id, department_id)
    VALUES(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
    END add_job_history;
-   
+   /
 CREATE OR REPLACE TRIGGER update_job_history
    AFTER UPDATE OF job_id, department_id ON employees
    FOR EACH ROW
@@ -2417,7 +2408,7 @@ CREATE OR REPLACE TRIGGER update_job_history
    add_job_history(:old.employee_id, :old.hire_date, sysdate, 
    :old.job_id, :old.department_id);
    END;
-   
+   /
 COMMIT;
 COMMENT ON TABLE regions 
          IS 'Regions table that contains region numbers and names. Contains 4 rows; references with the Countries table.';
@@ -2427,7 +2418,7 @@ COMMENT ON COLUMN regions.region_name
          IS 'Names of regions. Locations are in the countries of these regions.';
 COMMENT ON TABLE locations
          IS 'Locations table that contains specific address of a specific office,
-         warehouse, andor production site of a company. Does not store addresses 
+         warehouse, and/or production site of a company. Does not store addresses /
          locations of customers. Contains 23 rows; references with the
          departments and countries tables. ';
 COMMENT ON COLUMN locations.location_id
@@ -2448,7 +2439,7 @@ COMMENT ON COLUMN locations.country_id
          IS 'Country where an office, warehouse, or production site of a company is
          located. Foreign key to country_id column of the countries table.';
        
--- *********************************************
+REM *********************************************
 COMMENT ON TABLE departments
          IS 'Departments table that shows details of departments where employees 
          work. Contains 27 rows; references with locations, employees, and job_history tables.';
@@ -2463,7 +2454,7 @@ COMMENT ON COLUMN departments.manager_id
 COMMENT ON COLUMN departments.location_id
          IS 'Location id where a department is located. Foreign key to location_id column of locations table.';
        
--- *********************************************
+REM *********************************************
 COMMENT ON TABLE job_history
          IS 'Table that stores job history of the employees. If an employee 
          changes departments within the job or changes jobs within the department, 
@@ -2487,7 +2478,7 @@ COMMENT ON COLUMN job_history.job_id
 COMMENT ON COLUMN job_history.department_id
          IS 'Department id in which the employee worked in the past; foreign key to deparment_id column in the departments table';
        
--- *********************************************
+REM *********************************************
 COMMENT ON TABLE countries
          IS 'country table. Contains 25 rows. References with locations table.';
 COMMENT ON COLUMN countries.country_id
@@ -2496,7 +2487,7 @@ COMMENT ON COLUMN countries.country_name
          IS 'Country name';
 COMMENT ON COLUMN countries.region_id
          IS 'Region ID for the country. Foreign key to region_id column in the departments table.';
--- *********************************************
+REM *********************************************
 COMMENT ON TABLE jobs
          IS 'jobs table with job titles and salary ranges. Contains 19 rows.
          References with employees and job_history table.';
@@ -2508,7 +2499,7 @@ COMMENT ON COLUMN jobs.min_salary
          IS 'Minimum salary for a job title.';
 COMMENT ON COLUMN jobs.max_salary
          IS 'Maximum salary for a job title';
--- *********************************************
+REM *********************************************
 COMMENT ON TABLE employees
          IS 'employees table. Contains 107 rows. References with departments, 
          jobs, job_history tables. Contains a self reference.';

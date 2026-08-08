@@ -42,7 +42,9 @@ logs:
 prune:
 	@echo "Warning: Clearing data directory and logs..."
 	$(COMPOSE) down -v
-	@rm -rf $(ORACLE_DATA_DIR) || true
+	@sudo rm -rf $(ORACLE_DATA_DIR) || true
+	@mkdir -p ./oracle_data
+	@sudo chown -R 54321:54321 ./oracle_data
 
 test:
 	@echo "Testing Oracle connection via internal healthcheck loop..."
