@@ -20,7 +20,7 @@ help:
 	@echo "  logs       show logs"
 	@echo "  prune      clear data volumes and logs"
 	@echo "  test       test if admin (system) connection is online"
-	@echo "  test-user  test if app user (my_app_user) can read data"
+	@echo "  test-user  test if app user (my_test_user) can read data"
 	@echo "  config     edit configuration"
 
 up:
@@ -55,8 +55,8 @@ test:
 	fi
 
 test-user:
-	@echo "Testing connection for custom user 'my_app_user' against XEPDB1..."
-	@(echo "SET PAGESIZE 50"; echo "SET LINESIZE 120"; echo "COLUMN title FORMAT A35"; echo "SELECT id, title, status FROM todo_list;"; echo "EXIT;") | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_app_user/my_secure_password@//localhost:1521/XEPDB1
+	@echo "Testing connection for custom user 'my_test_user' against XEPDB1..."
+	@(echo "SET PAGESIZE 50"; echo "SET LINESIZE 120"; echo "COLUMN title FORMAT A35"; echo "SELECT id, title, status FROM todo_list;"; echo "EXIT;") | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//localhost:1521/XEPDB1
 
 config:
 	nano .env
