@@ -5,8 +5,8 @@
 # 1. DATABASE IMAGE NAME
 # a) Oracle Database Express Edition Container / Docker images.
 #    https://hub.docker.com/r/gvenzl/oracle-xe
-# ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
-ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-full
+ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+# ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-full
 
 # b) Oracle Database Free Container images.
 #    https://hub.docker.com/r/gvenzl/oracle-free
@@ -40,5 +40,5 @@ ORACLE_DATA_DIR=./oracle_data
 # 5. APPLICATION USER
 # Non-admin account for your apps to connect safely.
 # Change these values to secure credentials.
-ORACLE_APP_USER=my_user
-ORACLE_APP_USER_PASSWORD=my_password
+ORACLE_APP_USER=albertoi
+ORACLE_APP_USER_PASSWORD=my_secure_password
