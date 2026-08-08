@@ -18,7 +18,7 @@ help:
 	@echo "  restart    restart services"
 	@echo "  ps         show running containers"
 	@echo "  logs       show logs"
-	@echo "  prune      clear data volumes and logs"
+	@echo "  prune      clear data volumes and logs (DANGER!)"
 	@echo "  test       test if admin (system) connection is online"
 	@echo "  test-user  test if app user (my_test_user) can read data"
 	@echo "  config     edit configuration"
@@ -42,9 +42,9 @@ logs:
 prune:
 	@echo "Warning: Clearing data directory and logs..."
 	$(COMPOSE) down -v
-	@sudo rm -rf $(ORACLE_DATA_DIR) || true
-	@mkdir -p ./oracle_data
-	@sudo chown -R 54321:54321 ./oracle_data
+	sudo rm -rf $(ORACLE_DATA_DIR) || true
+	mkdir -p ./oracle_data
+	sudo chown -R 54321:54321 ./oracle_data
 
 test:
 	@echo "Testing Oracle connection via internal healthcheck loop..."

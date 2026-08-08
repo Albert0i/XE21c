@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "node src/testConn.js",
+    "test": "watch node src/testConn.js",
     "sql": "node src/runSqlPlus.js"
   },
   "repository": {

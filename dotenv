@@ -5,8 +5,10 @@
 # 1. DATABASE IMAGE NAME
 # a) Oracle Database Express Edition Container / Docker images.
 #    https://hub.docker.com/r/gvenzl/oracle-xe
-ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+# ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-faststart
 # ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-full
+# ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-full-faststart
 
 # b) Oracle Database Free Container images.
 #    https://hub.docker.com/r/gvenzl/oracle-free
