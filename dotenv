@@ -24,8 +24,6 @@ ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
 ORACLE_ROOT_PASSWORD=123456
 # To create a new pluggable database with the name specified.
 ORACLE_DATABASE=mypdb
-ORACLE_HOST=localhost
-ORACLE_PORT=1521
 
 # 3. DOCKER CONTAINER NAME
 # Identifier name for your running database service.
@@ -40,5 +38,8 @@ ORACLE_DATA_DIR=./oracle_data
 # 5. APPLICATION USER
 # Non-admin account for your apps to connect safely.
 # Change these values to secure credentials.
+ORACLE_HOST=localhost
+ORACLE_PORT=1521
+
 ORACLE_APP_USER=albertoi
 ORACLE_APP_USER_PASSWORD=my_secure_password

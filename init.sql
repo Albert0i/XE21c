@@ -1,51 +1,57 @@
 -- 
 -- ALTER SESSION to use the default pluggable database context.
--- Oracle XE
--- For 18c and onwards, the user will be created in the default `XEPDB1`  pluggable database.
--- ALTER SESSION SET CONTAINER = XEPDB1;
--- Oracle Free
--- For 18c and onwards, the user will be created in the default `FREEPDB1` pluggable database. 
--- ALTER SESSION SET CONTAINER = FREEPDB1;
+-- Oracle XE: 
+--      The user will be created in the default `XEPDB1`  pluggable database.
+-- Oracle Free: 
+--      The user will be created in the default `FREEPDB1` pluggable database. 
 --
 SET SERVEROUTPUT ON;
 
+-- Block 1: Print ASCII Art Banner
 BEGIN
-    DBMS_OUTPUT.PUT_LINE('******************************');
-    DBMS_OUTPUT.PUT_LINE('*    Executing `init.sql`    *');
-    DBMS_OUTPUT.PUT_LINE('******************************');
+    DBMS_OUTPUT.PUT_LINE('██╗███╗░░██╗██╗████████╗░░░░██████╗░██████╗░██╗░░░░░');
+    DBMS_OUTPUT.PUT_LINE('██║████╗░██║██║╚══██╔══╝░░░██╔════╝██╔═══██╗██║░░░░░');
+    DBMS_OUTPUT.PUT_LINE('██║██╔██╗██║██║░░░██║░░░░░░╚█████╗░██║██╗██║██║░░░░░');
+    DBMS_OUTPUT.PUT_LINE('██║██║╚████║██║░░░██║░░░░░░░╚═══██╗╚██████╔╝██║░░░░░');
+    DBMS_OUTPUT.PUT_LINE('██║██║░╚███║██║░░░██║░░░██╗██████╔╝░╚═██╔═╝░███████╗');
+    DBMS_OUTPUT.PUT_LINE('╚═╝╚═╝░░╚══╝╚═╝░░░╚═╝░░░╚═╝╚═════╝░░░░╚═╝░░░╚══════╝');
 END;
 /
 
-SET SERVEROUTPUT ON;
+-- Block 2: Detect Image and Print Message FIRST, then End the Block (Flushing the Output)
+VARIABLE g_target_pdb VARCHAR2(30);
 
 DECLARE
-    -- Expanded from 100 to 4000 to hold the massive version banner safely
     v_edition VARCHAR2(4000); 
 BEGIN
-    -- 1. Query the database banner
-    SELECT banner_full 
-    INTO v_edition 
-    FROM v$version 
-    WHERE ROWNUM = 1;
+    SELECT banner_full INTO v_edition FROM v$version WHERE ROWNUM = 1;
 
-    -- 2. Dynamically execute container switching
     IF INSTR(LOWER(v_edition), 'xe') > 0 THEN
-        DBMS_OUTPUT.PUT_LINE('ℹ️ [INIT LOG]: Detected Oracle XE Image. Switching to XEPDB1...');
-        EXECUTE IMMEDIATE 'ALTER SESSION SET CONTAINER = XEPDB1';
-        
+        DBMS_OUTPUT.PUT_LINE('[init.sql]: Detected Oracle XE Image. Selecting PDB: XEPDB1...');
+        :g_target_pdb := 'XEPDB1';
     ELSIF INSTR(LOWER(v_edition), 'free') > 0 THEN
-        DBMS_OUTPUT.PUT_LINE('ℹ️ [INIT LOG]: Detected Oracle Free Image. Switching to FREEPDB1...');
-        EXECUTE IMMEDIATE 'ALTER SESSION SET CONTAINER = FREEPDB1';
-        
+        DBMS_OUTPUT.PUT_LINE('[init.sql]: Detected Oracle Free Image. Selecting PDB: FREEPDB1...');
+        :g_target_pdb := 'FREEPDB1';
     ELSE
-        DBMS_OUTPUT.PUT_LINE('⚠️ [INIT LOG]: Unrecognized database version. Falling back to XEPDB1...');
-        EXECUTE IMMEDIATE 'ALTER SESSION SET CONTAINER = XEPDB1';
+        DBMS_OUTPUT.PUT_LINE('[init.sql]: Unrecognized database version. Defaulting to XEPDB1...');
+        :g_target_pdb := 'XEPDB1';
     END IF;
 END;
 /
 
+-- Block 3: Execute the Session Container Alteration (Safely after printing)
+BEGIN
+    EXECUTE IMMEDIATE 'ALTER SESSION SET CONTAINER = ' || :g_target_pdb;
+END;
+/
 
---
+-- Block 4: Re-enable Server Output inside the new PDB container environment
+SET SERVEROUTPUT ON;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('[init.sql]: Container switch verified. Initializing schema customization...');
+END;
+/
+
 
 -- 1. Create a custom application user profile
 CREATE USER my_test_user IDENTIFIED BY my_secure_password;
