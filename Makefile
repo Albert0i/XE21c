@@ -57,12 +57,18 @@ logs:
 	$(COMPOSE) logs -f
 
 prune:
-	@echo "Warning: Clearing data directory and logs..."
+	@echo "⚠️ Warning: Clearing data directories, volumes, and monitoring logs..."
 	$(COMPOSE) down -v
-	sudo rm -rf $(ORACLE_DATA_DIR) || true
-	mkdir -p ./oracle_data
-	sudo chown -R 54321:54321 ./oracle_data
-
+	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data || true
+	
+	@echo "🛠️ Re-creating clean local directories..."
+	mkdir -p $(ORACLE_DATA_DIR) ./prometheus_data ./grafana_data
+	
+	@echo "🔒 Setting secure ownership and permission boundaries..."
+	sudo chown -R 54321:54321 $(ORACLE_DATA_DIR)
+	chown -R $$USER:$$USER ./grafana_data ./prometheus_data
+	chmod 755 ./grafana_data ./prometheus_data
+	@echo "✨ Prune completed successfully! Environment is fresh and clean."
 
 test:
 	@echo "Checking Oracle container health and system user credentials..."
