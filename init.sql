@@ -2,10 +2,10 @@
 -- ALTER SESSION to use the default pluggable database context.
 -- Oracle XE
 -- For 18c and onwards, the user will be created in the default `XEPDB1`  pluggable database.
-ALTER SESSION SET CONTAINER = XEPDB1;
+-- ALTER SESSION SET CONTAINER = XEPDB1;
 -- Oracle Free
 -- For 18c and onwards, the user will be created in the default `FREEPDB1` pluggable database. 
--- ALTER SESSION SET CONTAINER = FREEPDB1;
+ALTER SESSION SET CONTAINER = FREEPDB1;
 -- 
 
 -- 1. Create a custom application user profile

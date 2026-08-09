@@ -4,13 +4,29 @@ export $(shell sed 's/=.*//' $(cnf))
 
 COMPOSE = docker compose
 
-.PHONY: help up down restart ps logs prune test config
+.PHONY: help up down restart ps logs prune test test-user config
+
+#
+# Deteccting the right PDB name...
+#
+ifneq ($(findstring xe,$(ORACLE_IMAGE_NAME)),)
+    PDBNAME := XEPDB1
+	IMAGE_TYPE = XE
+else ifneq ($(findstring free,$(ORACLE_IMAGE_NAME)),)
+    PDBNAME := FREEPDB1
+	IMAGE_TYPE = Free
+else
+    PDBNAME := XEPDB1
+	IMAGE_TYPE = XE
+endif
+# $(info ℹ️ Resolved Database PDBNAME: $(PDBNAME))
+
 
 help:
 	@echo
 	@echo "Usage: make TARGET"
 	@echo
-	@echo "Oracle Database Express Edition (XE) stack automation helper (Linux)"
+	@echo "Oracle Database ${IMAGE_TYPE} stack automation helper (Linux)"
 	@echo
 	@echo "Targets:"
 	@echo "  up         start all services"
@@ -22,6 +38,7 @@ help:
 	@echo "  test       test if admin (system) connection is online"
 	@echo "  test-user  test if app user (my_test_user) can read data"
 	@echo "  config     edit configuration"
+
 
 up:
 	@mkdir -p $(ORACLE_DATA_DIR)
@@ -48,12 +65,12 @@ prune:
 
 
 test:
-	@echo "Checking Oracle XE container health and system user credentials..."
+	@echo "Checking Oracle container health and system user credentials..."
 	@if [ "$$(docker inspect -f '{{.State.Running}}' $(ORACLE_CONTAINER_NAME) 2>/dev/null)" != "true" ]; then \
 		echo "❌ Connection failed! The Docker container '$(ORACLE_CONTAINER_NAME)' is stopped or down."; \
 		exit 0; \
 	elif docker exec -i $(ORACLE_CONTAINER_NAME) sh -c \
-		'echo "SELECT 1 FROM DUAL;" | sqlplus -S system/$(ORACLE_ROOT_PASSWORD)@//localhost:1521/XE' 2>&1 | grep -q "ORA-"; then \
+		'echo "SELECT 1 FROM DUAL;" | sqlplus -S system/$(ORACLE_ROOT_PASSWORD)@//${ORACLE_HOST}:${ORACLE_PORT}/${PDBNAME}' 2>&1 | grep -q "ORA-"; then \
 		echo "❌ Connection failed! Database is still booting up or credentials mismatch."; \
 		exit 0; \
 	else \
@@ -61,7 +78,7 @@ test:
 	fi
 
 test-user:
-	@echo "Testing connection for custom user 'my_test_user' against XEPDB1..."
+	@echo "Testing connection for custom user 'my_test_user' against ${PDBNAME}..."
 	@if [ "$$(docker inspect -f '{{.State.Running}}' $(ORACLE_CONTAINER_NAME) 2>/dev/null)" != "true" ]; then \
 		echo "❌ Connection failed! The Docker container '$(ORACLE_CONTAINER_NAME)' is stopped or down."; \
 		exit 0; \
@@ -74,7 +91,7 @@ test-user:
 			echo "COLUMN status FORMAT A10"; \
 			echo "SELECT id, title, status FROM todo_list;"; \
 			echo "EXIT;"; \
-		) | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//localhost:1521/XEPDB1; \
+		) | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//${ORACLE_HOST}:${ORACLE_PORT}/${PDBNAME}; \
 	fi
 
 config:
