@@ -46,15 +46,7 @@ prune:
 	mkdir -p ./oracle_data
 	sudo chown -R 54321:54321 ./oracle_data
 
-# test:
-# 	@echo "Testing Oracle connection via internal healthcheck loop..."
-# 	@if docker exec -i $(ORACLE_CONTAINER_NAME) sh -c \
-# 		'echo "SELECT 1 FROM DUAL;" | sqlplus -S system/$(ORACLE_ROOT_PASSWORD)@//localhost:1521/XE' 2>&1 | grep -q "ORA-"; then \
-# 		echo "❌ Connection failed! Database is still booting up or credentials mismatch."; \
-# 		exit 1; \
-# 	else \
-# 		echo "🎉 Connection successful! Oracle XE is online and ready."; \
-# 	fi
+
 test:
 	@echo "Checking Oracle XE container health and system user credentials..."
 	@if [ "$$(docker inspect -f '{{.State.Running}}' $(ORACLE_CONTAINER_NAME) 2>/dev/null)" != "true" ]; then \
@@ -68,22 +60,22 @@ test:
 		echo "🎉 Connection successful! Oracle XE is online and ready."; \
 	fi
 
-
-
-# test-user:
-# 	@echo "Testing connection for custom user 'my_test_user' against XEPDB1..."
-# 	@(echo "SET PAGESIZE 50"; echo "SET LINESIZE 120"; echo "COLUMN id FORMAT 9999"; echo "COLUMN title FORMAT A80"; echo "COLUMN status FORMAT A10"; echo "SELECT id, title, status FROM todo_list;"; echo "EXIT;") | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//localhost:1521/XEPDB1
 test-user:
 	@echo "Testing connection for custom user 'my_test_user' against XEPDB1..."
-	@( \
-		echo "SET PAGESIZE 50"; \
-		echo "SET LINESIZE 120"; \
-		echo "COLUMN id FORMAT 9999"; \
-		echo "COLUMN title FORMAT A80"; \
-		echo "COLUMN status FORMAT A10"; \
-		echo "SELECT id, title, status FROM todo_list;"; \
-		echo "EXIT;"; \
-	) | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//localhost:1521/XEPDB1
+	@if [ "$$(docker inspect -f '{{.State.Running}}' $(ORACLE_CONTAINER_NAME) 2>/dev/null)" != "true" ]; then \
+		echo "❌ Connection failed! The Docker container '$(ORACLE_CONTAINER_NAME)' is stopped or down."; \
+		exit 0; \
+	else \
+		( \
+			echo "SET PAGESIZE 50"; \
+			echo "SET LINESIZE 120"; \
+			echo "COLUMN id FORMAT 9999"; \
+			echo "COLUMN title FORMAT A80"; \
+			echo "COLUMN status FORMAT A10"; \
+			echo "SELECT id, title, status FROM todo_list;"; \
+			echo "EXIT;"; \
+		) | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//localhost:1521/XEPDB1; \
+	fi
 
 config:
 	nano .env
