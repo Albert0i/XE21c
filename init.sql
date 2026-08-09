@@ -1,5 +1,12 @@
--- ALTER SESSION to use the default pluggable database context (XEPDB1)
+-- 
+-- ALTER SESSION to use the default pluggable database context.
+-- Oracle XE
+-- For 18c and onwards, the user will be created in the default `XEPDB1`  pluggable database.
 ALTER SESSION SET CONTAINER = XEPDB1;
+-- Oracle Free
+-- For 18c and onwards, the user will be created in the default `FREEPDB1` pluggable database. 
+-- ALTER SESSION SET CONTAINER = FREEPDB1;
+-- 
 
 -- 1. Create a custom application user profile
 CREATE USER my_test_user IDENTIFIED BY my_secure_password;
@@ -18,16 +25,18 @@ CREATE TABLE my_test_user.todo_list (
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. Insert initial seed sample records (10 total rows)
-INSERT INTO my_test_user.todo_list (title) VALUES ('Configure Oracle XE Container');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Verify init.sql Schema Loading');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Setup Zorin OS 18.1 Client Drivers');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Establish Windows 11 CLI Variables');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Test Pluggable Database Connectivity');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Validate User Schema Tablespace Quota');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Implement Application Data Layer');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Review Database Performance Metrics');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Automate Backup Routine Scripts');
-INSERT INTO my_test_user.todo_list (title) VALUES ('Finalize System Deployment Documentation');
+-- 5. Insert initial seed sample records (12 total rows)
+INSERT INTO my_test_user.todo_list (title) VALUES ('Fix the quantum interference device broken by Stuart Bloom');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Escape the repressive AI on the idyllic version of Earth');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Enlist a powerful wizard to help Bert find a sorcery gift');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Survive the post-apocalyptic Pasadena and avoid giant moths');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Barter canned vegetables and cat food for rare comic books');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Overthrow military dictator Barry Kripke in alternate reality');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Locate Denise after she mysteriously disappears in the multiverse');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Convince doctors in the mental institution that the multiverse is real');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Break out of the Matrix pods before reality resets again');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Undo the multiverse Armageddon accidentally unleashed by the gang');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Help Gary secure his new job working for UPS');
+INSERT INTO my_test_user.todo_list (title) VALUES ('Find the original universe where Leonard and Sheldon live');
 
 COMMIT;
