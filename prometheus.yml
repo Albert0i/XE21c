@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s     # Collect metrics every 5 seconds for rapid updates
+  evaluation_interval: 5s # Evaluate alert rules every 5 seconds
+
+scrape_configs:
+  # Scrape the Oracle Database Prometheus Exporter
+  - job_name: 'oracle-db-metrics'
+    static_configs:
+      - targets: ['oracle-exporter:9161']
+

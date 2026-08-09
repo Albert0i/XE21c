@@ -3,7 +3,8 @@
 
 # Ignore data directories
 oracle_data/
-data/
+prometheus_data/
+grafana_data/
 
 # Ignore Node.js dependencies
 node_modules/
