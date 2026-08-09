@@ -26,7 +26,7 @@ DECLARE
 BEGIN
     SELECT banner_full INTO v_edition FROM v$version WHERE ROWNUM = 1;
 
-    IF INSTR(LOWER(v_edition), 'xe') > 0 THEN
+    IF INSTR(LOWER(v_edition), 'express') > 0 THEN
         DBMS_OUTPUT.PUT_LINE('[init.sql]: Detected Oracle XE Image. Selecting PDB: XEPDB1...');
         :g_target_pdb := 'XEPDB1';
     ELSIF INSTR(LOWER(v_edition), 'free') > 0 THEN
