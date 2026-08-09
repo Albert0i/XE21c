@@ -74,7 +74,7 @@ test:
 		echo "❌ Connection failed! Database is still booting up or credentials mismatch."; \
 		exit 0; \
 	else \
-		echo "🎉 Connection successful! Oracle XE is online and ready."; \
+		echo "🎉 Connection successful! Oracle ${IMAGE_TYPE} is online and ready."; \
 	fi
 
 test-user:
