@@ -71,3 +71,5 @@ services:
       - prometheus
     restart: unless-stopped
     # http://localhost:8080/
+    # Dashboard id: 13555
+    
