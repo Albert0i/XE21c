@@ -2,6 +2,7 @@
 
 
 #### Prologue 
+Whether you like it or not, Oracle is the world’s No. 1 RDBMS. 
 
 
 #### I. Project Structure 
