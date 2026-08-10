@@ -1,17 +1,156 @@
-# Oracle XE 21c in Docker
+### Oracle Database XE 21c with Docker
 
 
 #### Prologue 
 
-#### I. 
-#### II. 
-#### III. 
-#### IV. 
-#### V. 
-#### VI. 
-#### VII.
-#### VIII. 
-#### IX. 
+
+#### I. Project Structure 
+```
+.
+├── .env                # Explicit credential mapping & local file configurations
+├── docker-compose.yml  # Complete service orchestrator manifest
+├── Makefile            # Wrapper driver for automation targets
+├── init.sql            # First-boot schema initializer script
+└── oracle_data/        # Persistent Oracle XE 21c data repository
+```
+
+
+#### II. `.env`
+```
+ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+ORACLE_ROOT_PASSWORD=123456
+ORACLE_DATABASE=mypdb
+ORACLE_CONTAINER_NAME=oracle-db
+ORACLE_DATA_DIR=./oracle_data
+ORACLE_APP_USER=my_user
+ORACLE_APP_USER_PASSWORD=my_password
+```
+
+
+#### III. `docker-compose.yml` 
+```
+services:
+  oracle-db:
+    image: ${ORACLE_IMAGE_NAME}
+    container_name: ${ORACLE_CONTAINER_NAME}
+    ports:
+      - "${ORACLE_PORT}:1521"
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_ROOT_PASSWORD}
+      ORACLE_DATABASE: ${ORACLE_DATABASE}
+      APP_USER: ${ORACLE_APP_USER}
+      APP_USER_PASSWORD: ${ORACLE_APP_USER_PASSWORD}
+    volumes:
+      - ${ORACLE_DATA_DIR}:/opt/oracle/oradata
+      # Map your initialization script safely
+      - ./init.sql:/container-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+```
+
+
+#### IV. `Makefile`
+```
+cnf ?= .env
+include $(cnf)
+export $(shell sed 's/=.*//' $(cnf))
+
+COMPOSE = docker compose
+
+.PHONY: help up down restart ps logs prune test config
+
+help:
+	@echo
+	@echo "Usage: make TARGET"
+	@echo
+	@echo "Oracle Database Express Edition (XE) stack automation helper (Linux)"
+	@echo
+	@echo "Targets:"
+	@echo "  up         start all services"
+	@echo "  down       stop all services and delete volumes"
+	@echo "  restart    restart services"
+	@echo "  ps         show running containers"
+	@echo "  logs       show logs"
+	@echo "  prune      clear data volumes and logs"
+	@echo "  test       test if admin (system) connection is online"
+	@echo "  test-user  test if app user (my_app_user) can read data"
+	@echo "  config     edit configuration"
+
+up:
+	@mkdir -p $(ORACLE_DATA_DIR)
+	$(COMPOSE) up -d --remove-orphans
+
+down:
+	$(COMPOSE) down -v
+
+restart:
+	$(COMPOSE) restart
+
+ps:
+	$(COMPOSE) ps
+
+logs:
+	$(COMPOSE) logs -f
+
+prune:
+	@echo "Warning: Clearing data directory and logs..."
+	$(COMPOSE) down -v
+	@rm -rf $(ORACLE_DATA_DIR) || true
+
+test:
+	@echo "Testing Oracle connection via internal healthcheck loop..."
+	@if docker exec -i $(ORACLE_CONTAINER_NAME) sh -c \
+		'echo "SELECT 1 FROM DUAL;" | sqlplus -S system/$(ORACLE_ROOT_PASSWORD)@//localhost:1521/XE' 2>&1 | grep -q "ORA-"; then \
+		echo "❌ Connection failed! Database is still booting up or credentials mismatch."; \
+		exit 1; \
+	else \
+		echo "🎉 Connection successful! Oracle XE is online and ready."; \
+	fi
+
+test-user:
+	@echo "Testing connection for custom user 'my_app_user' against XEPDB1..."
+	@(echo "SET PAGESIZE 50"; echo "SET LINESIZE 120"; echo "COLUMN title FORMAT A35"; echo "SELECT id, title, status FROM todo_list;"; echo "EXIT;") | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_app_user/my_secure_password@//localhost:1521/XEPDB1
+
+config:
+	nano .env
+```
+
+
+#### V. Let’s get started!
+
+#### VI. `init.sql` 
+
+#### VII. Load sample data
+
+#### VIII. Test connection
+
+#### IX. Conclusion
+
+#### X. Bibliography
+1. [gvenzl/oracle-xe](https://hub.docker.com/r/gvenzl/oracle-xe)
+2. [gvenzl/oracle-free](https://hub.docker.com/r/gvenzl/oracle-free)
+3. [Oracle AI Database Free](https://www.oracle.com/database/free/)
+4. [Oracle Instant Client Downloads](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+5. [SQL*Plus® User's Guide and Reference](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqpug/index.html)
+6. [DBeaver Community 26.1.4](https://dbeaver.io/download/)
+7. [Sample database of employee table on ORACLE 21c](https://download.oracle.com/oll/tutorials/DBXETutorial/html/module2/les02_load_data_sql.htm)
+8. [Oracle Database XE Downloads](https://www.oracle.com/database/technologies/express-edition-downloads.html)
+9. [Oracle AI Database 26ai Download for Linux (Intel x86-64) (64-bit)](https://www.oracle.com/database/technologies/oracle26ai-linux-downloads.html)
+10. [node-oracledb](https://www.npmjs.com/package/oracledb)
+11. [Text Art](https://fsymbols.com/text-art/)
+12. [The Book of Disquiet by Fernando Pessoa](doc/The%20Book%20of%20Disquiet%20-%20Fernando%20Pessoa.pdf)
+
+
+#### Epilogue 
+
+
+### EOF (2026/08/28)
+
 
 
 A production-grade, single-command orchestration suite that deploys an Oracle Database Express Edition (XE) 21c instance bundled alongside an isolated, non-conflicting performance monitoring environment (Prometheus, Grafana, and an Oracle Database Metrics Exporter). 
@@ -187,24 +326,3 @@ If managing these setups from an active root shell layout, always pipeline your 
 ```bash
 xhost +si:localuser:alberto && runuser -l alberto -c "export DISPLAY=\$DISPLAY; brave-browser"
 ```
-
-#### X. Bibliography
-1. [gvenzl/oracle-xe](https://hub.docker.com/r/gvenzl/oracle-xe)
-2. [gvenzl/oracle-free](https://hub.docker.com/r/gvenzl/oracle-free)
-3. [Oracle AI Database Free](https://www.oracle.com/database/free/)
-4. [Oracle Instant Client Downloads](https://www.oracle.com/database/technologies/instant-client/downloads.html)
-5. [SQL*Plus® User's Guide and Reference](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqpug/index.html)
-6. [DBeaver Community 26.1.4](https://dbeaver.io/download/)
-7. [Sample database of employee table on ORACLE 21c](https://download.oracle.com/oll/tutorials/DBXETutorial/html/module2/les02_load_data_sql.htm)
-8. [Oracle Database XE Downloads](https://www.oracle.com/database/technologies/express-edition-downloads.html)
-9. [Oracle AI Database 26ai Download for Linux (Intel x86-64) (64-bit)](https://www.oracle.com/database/technologies/oracle26ai-linux-downloads.html)
-10. [node-oracledb](https://www.npmjs.com/package/oracledb)
-11. [Text Art](https://fsymbols.com/text-art/)
-12. [The Book of Disquiet by Fernando Pessoa](doc/The%20Book%20of%20Disquiet%20-%20Fernando%20Pessoa.pdf)
-
-
-#### Epilogue 
-
-
-### EOF (2026/08/28)
-
