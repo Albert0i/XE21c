@@ -182,10 +182,10 @@ xhost +si:localuser:alberto && runuser -l alberto -c "export DISPLAY=\$DISPLAY; 
 5. [SQL*Plus® User's Guide and Reference](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqpug/index.html)
 6. [DBeaver Community 26.1.4](https://dbeaver.io/download/)
 7. [Sample database of employee table on ORACLE 21c](https://download.oracle.com/oll/tutorials/DBXETutorial/html/module2/les02_load_data_sql.htm)
-8. []()
-9. []()
-10. []()
-11. []()
+8. [Oracle Database XE Downloads](https://www.oracle.com/database/technologies/express-edition-downloads.html)
+9. [Oracle AI Database 26ai Download for Linux (Intel x86-64) (64-bit)](https://www.oracle.com/database/technologies/oracle26ai-linux-downloads.html)
+10. [node-oracledb](https://www.npmjs.com/package/oracledb)
+11. [Text Art](https://fsymbols.com/text-art/)
 12. [The Book of Disquiet by Fernando Pessoa](doc/The%20Book%20of%20Disquiet%20-%20Fernando%20Pessoa.pdf)
 
 
