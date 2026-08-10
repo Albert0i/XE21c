@@ -1,4 +1,4 @@
-# Fully Automated & Isolated Oracle XE 21c Database with Monitoring Stack
+# XE21c - Oracle XE 21c
 
 
 #### Prologue 
