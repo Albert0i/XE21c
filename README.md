@@ -122,6 +122,11 @@ config:
 
 
 #### V. Let’s get started!
+![alt make](img/make.png)
+
+![alt make_up_test](img/make_up_test.png)
+
+![alt make_test-user](img/make_test-user.png)
 
 
 #### VI. `init.sql` 
@@ -172,9 +177,11 @@ COMMIT;
 
 
 #### VII. Load sample data
+![alt npm_run_sql](img/npm_run_sql.png)
 
 
 #### VIII. Test connection
+![alt npm_run_test](img/npm_run_test.png)
 
 
 #### IX. Conclusion
