@@ -173,3 +173,22 @@ If managing these setups from an active root shell layout, always pipeline your 
 ```bash
 xhost +si:localuser:alberto && runuser -l alberto -c "export DISPLAY=\$DISPLAY; brave-browser"
 ```
+
+#### X. Bibliography
+1. [gvenzl/oracle-xe](https://hub.docker.com/r/gvenzl/oracle-xe)
+2. [gvenzl/oracle-free](https://hub.docker.com/r/gvenzl/oracle-free)
+3. [Oracle AI Database Free](https://www.oracle.com/database/free/)
+4. [Oracle Instant Client Downloads](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+5. [SQL*Plus® User's Guide and Reference](https://docs.oracle.com/en/
+database/oracle/oracle-database/21/sqpug/index.html)
+6. [DBeaver Community 26.1.4](https://dbeaver.io/download/)
+7. [Sample database of employee table on ORACLE 21c](https://download.oracle.com/oll/tutorials/DBXETutorial/html/module2/les02_load_data_sql.htm)
+8. []()
+9. []()
+10. []()
+11. []()
+12. [The Book of Disquiet by Fernando Pessoa](doc/The%20Book%20of%20Disquiet%20-%20Fernando%20Pessoa.pdf)
+
+
+### EOF (2026/08/28)
+
