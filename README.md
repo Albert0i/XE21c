@@ -1,5 +1,19 @@
 # Fully Automated & Isolated Oracle XE 21c Database with Monitoring Stack
 
+
+#### Prologue 
+
+#### I. 
+#### II. 
+#### III. 
+#### IV. 
+#### V. 
+#### VI. 
+#### VII.
+#### VIII. 
+#### IX. 
+
+
 A production-grade, single-command orchestration suite that deploys an Oracle Database Express Edition (XE) 21c instance bundled alongside an isolated, non-conflicting performance monitoring environment (Prometheus, Grafana, and an Oracle Database Metrics Exporter). 
 
 Optimized strictly for Linux environments such as **Zorin OS 18** and **Debian 13/14**.
@@ -187,6 +201,9 @@ xhost +si:localuser:alberto && runuser -l alberto -c "export DISPLAY=\$DISPLAY; 
 10. [node-oracledb](https://www.npmjs.com/package/oracledb)
 11. [Text Art](https://fsymbols.com/text-art/)
 12. [The Book of Disquiet by Fernando Pessoa](doc/The%20Book%20of%20Disquiet%20-%20Fernando%20Pessoa.pdf)
+
+
+#### Epilogue 
 
 
 ### EOF (2026/08/28)
