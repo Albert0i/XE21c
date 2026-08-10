@@ -11,13 +11,13 @@ COMPOSE = docker compose
 #
 ifneq ($(findstring xe,$(ORACLE_IMAGE_NAME)),)
     PDBNAME := XEPDB1
-	IMAGE_TYPE = XE
+	IMAGE_TYPE = Express
 else ifneq ($(findstring free,$(ORACLE_IMAGE_NAME)),)
     PDBNAME := FREEPDB1
 	IMAGE_TYPE = Free
 else
     PDBNAME := XEPDB1
-	IMAGE_TYPE = XE
+	IMAGE_TYPE = Express
 endif
 # $(info ℹ️ Resolved Database PDBNAME: $(PDBNAME))
 
@@ -26,7 +26,7 @@ help:
 	@echo
 	@echo "Usage: make TARGET"
 	@echo
-	@echo "Oracle Database ${IMAGE_TYPE} stack automation helper (Linux)"
+	@echo "Oracle Database ${IMAGE_TYPE} Edition stack automation helper (Linux)"
 	@echo
 	@echo "Targets:"
 	@echo "  up         start all services"
