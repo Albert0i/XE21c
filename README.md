@@ -1,4 +1,4 @@
-# XE21c - Oracle XE 21c
+# Oracle XE 21c in Docker
 
 
 #### Prologue 
