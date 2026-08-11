@@ -288,6 +288,11 @@ sqlplus.on("exit", (code) => {
 
 ![alt npm_run_sql](img/npm_run_sql.png)
 
+**SQL*Plus punchline**
+
+-  *I tried to impress my date by showing her SQL*Plus…*  
+-  She said, “That’s not a query, that’s a cry for help.”  
+
 
 #### VIII. Test connection
 `testConn.js` 
