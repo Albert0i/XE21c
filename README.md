@@ -48,7 +48,7 @@ ORACLE_APP_USER=my_user
 ORACLE_APP_USER_PASSWORD=my_password
 ```
 
-As of this writing, the lastest version is `21.3.0`, there are three image flavors: 
+As of this writing, the lastest version is `21.3.0`, there are four image flavors: 
 - (default) : Balance image size and functionality. 
 - `-slim` : Smaller image size but less functionality.
 - `-full` : All functionality provided by Oracle.
