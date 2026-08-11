@@ -2,7 +2,7 @@
 
 
 #### Prologue 
-Whether you like it or not, Oracle is the world’s No. 1 RDBMS. 
+**M**ost developers don’t like Oracle, and neither do I. **W**hether you like it or not, Oracle remains the world’s leading RDBMS. 
 
 
 #### I. Project Structure 
