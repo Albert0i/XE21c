@@ -1,5 +1,6 @@
 ### Oracle Database XE 21c with Docker
 
+![alt Copilot_20260811_145412](img/Copilot_20260811_145412.png)
 
 #### Prologue 
 **M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. My first choice of relational database is `MariaDB` even I tackle with Oracle on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits in small projects. 
