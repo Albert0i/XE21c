@@ -1,4 +1,9 @@
-![alt Oracle Database XE 21c with Docker](img/Copilot_20260811_145412.png)
+### Oracle Database XE 21c with Docker
+
+> "The only way you can have new sensations is by forging a new soul.
+It’s useless to try to feel new things without feeling them in a new
+way, and you can’t feel in a new way without changing your soul."<br /><br />"A única maneira de teres sensações novas é construíres-te uma alma nova. Baldado esforço o teu se queres sentir outras coisas sem sentires de outra maneira, e sentires de outra maneira sem mudares de alma."<br/>--- The Book of Disquiet by Fernando Pessoa
+
 
 #### Prologue 
 **M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. My first choice of relational database is `MariaDB` even I tackle with Oracle on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits in small projects. 
@@ -232,6 +237,12 @@ COMMIT;
 
 
 #### Epilogue 
+> "For things are what we feel they are – how long have you known
+this without yet knowing it? – and the only way for there to be new
+things, for us to feel new things, is for there to be some novelty in
+how we feel them."
+
+> "Porque as coisas são como nós as sentimos — há quanto tempo sabes tu isto sem o saberes’? — e o único modo de haver coisas novas, de sentir coisas novas é haver novidade no senti-las."
 
 
 ### EOF (2026/08/28)
