@@ -192,15 +192,30 @@ sudo chown -R 54321:54321 ./oracle_data
 
 
 #### VI. `init.sql` 
+> If you would like to perform additional initialization of the database running in a container, you can add one or more `*.sql`, `*.sql.gz`, `*.sql.zip` or `*.sh` files under `/container-entrypoint-initdb.d` (creating the directory if necessary). After the database setup is completed, these files will be executed automatically in alphabetical order.
+
+> The directory can include sub directories which will be traversed recursively in alphabetical order alongside the files. The container does not give any priority to files or directories, meaning that whatever comes next in alphabetical order will be processed next. If it is a file it will be executed, if it is a directory it will be traversed. To guarantee the order of execution, consider using a clear prefix in your file and directory names like numbers `001_`, `002_`. This will also make it easier for any user to understand which script is supposed to be executed in what order.
+
+> The `*.sql`, `*.sql.gz` and `*.sql.zip` files **will be executed in SQL*Plus as the** `SYS` **user connected to the Oracle instance** (XE). This allows users to modify instance parameters, create new pluggable databases, tablespaces, users and more as part of their initialization scripts. **If you want to initialize your application schema, you first have to connect to that schema inside your initialization script!** Compressed files will be uncompressed on the fly, allowing for e.g. bigger data loading scripts to save space.
+
+> Executable `*.sh` files will be run in a new shell process while non-executable `*.sh` files (files that do not have the Linux executable permission set) will be sourced into the current shell process. The main difference between these methods is that sourced shell scripts can influence the environment of the current process and should generally be avoided. However, sourcing scripts allows for execution of these scripts even if the executable flag is not set for the files containing them. This basically avoids the "why did my script not get executed" confusion.
+
+> **Note**: scripts in `/container-entrypoint-initdb.d` are only run the first time the database is initialized; any pre-existing database will be left untouched on container startup.
+
+> **Note**: you can also put files under the `/docker-entrypoint-initdb.d` directory. This is kept for backwards compatibility with other widely used container images but should generally be avoided. Do not put files under `/container-entrypoint-initdb.d` and `/docker-entrypoint-initdb.d` as this would cause the same files to be executed twice!
+
+> **Warning**: if a command within the sourced `/container-entrypoint-initdb.d` scripts fails, it will cause the main entrypoint script to exit and stop the container. It also may leave the database in an incomplete initialized state. Make sure that shell scripts handle error situations gracefully and ideally do not source them!
+
+> **Warning**: do not exit executable `/container-entrypoint-initdb.d` scripts with a non-zero value (using e.g. `exit 1`;) unless it is desired for a container to be stopped! A non-zero return value will tell the main entrypoint script that something has gone wrong and that the container should be stopped.
+
+**Example**: 
+
 ```
 -- 
 -- ALTER SESSION to use the default pluggable database context.
 -- Oracle XE
 -- For 18c and onwards, the user will be created in the default `XEPDB1`  pluggable database.
 ALTER SESSION SET CONTAINER = XEPDB1;
--- Oracle Free
--- For 18c and onwards, the user will be created in the default `FREEPDB1` pluggable database. 
--- ALTER SESSION SET CONTAINER = FREEPDB1;
 --
 
 -- 1. Create a custom application user profile
