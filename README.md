@@ -54,6 +54,8 @@ As of this writing, the lastest version is `21.3.0`, there are four image flavor
 - `-full` : All functionality provided by Oracle.
 - `-faststart` : All functionality with an already expanded and ready to go database inside the image. This image trades image size on disk for a faster database startup time.
 
+*When in doubt, stick to the default*.
+
 
 #### III. `docker-compose.yml` 
 ```
