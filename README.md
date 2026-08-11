@@ -253,7 +253,9 @@ COMMIT;
 ```
 
 
-#### VII. Load sample data
+#### VII. Loading sample data
+Oracle experts typically prefer loading sample data using SQLPlus. 
+
 ![alt npm_run_sql](img/npm_run_sql.png)
 
 
