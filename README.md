@@ -43,9 +43,16 @@ ORACLE_ROOT_PASSWORD=123456
 ORACLE_DATABASE=mypdb
 ORACLE_CONTAINER_NAME=oracle-db
 ORACLE_DATA_DIR=./oracle_data
+
 ORACLE_APP_USER=my_user
 ORACLE_APP_USER_PASSWORD=my_password
 ```
+
+As of this writing, the lastest version is `21.3.0`, there are three image flavors: 
+- (default) : Balance image size and functionality. 
+- `-slim` : Smaller image size but less functionality.
+- `-full` : All functionality provided by Oracle.
+- `-faststart` : All functionality with an already expanded and ready to go database inside the image. This image trades image size on disk for a faster database startup time.
 
 
 #### III. `docker-compose.yml` 
