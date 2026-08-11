@@ -341,6 +341,7 @@ const config = createDbConfig({
 
 
 #### IX. Conclusion
+![alt Oracle Database XE 21c with Docker](img/Copilot_20260811_145412.png)
 
 
 #### X. Bibliography
