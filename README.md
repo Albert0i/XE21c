@@ -175,6 +175,16 @@ config:
 
 
 #### V. Let’s get started!
+Clone the repositry from [here](https://github.com/Albert0i/XE21c.git)
+
+```
+# 1. Create the persistent database
+mkdir -p ./oracle_data 
+
+# 2. Grant read/write ownership directly to Oracle's internal system ID (54321)
+sudo chown -R 54321:54321 ./oracle_data
+```
+
 ![alt make](img/make.png)
 
 ![alt make_up_test](img/make_up_test.png)
