@@ -28,11 +28,11 @@ With its steep learning curve and complex management requirements, Oracle is bes
 #### I. Project Structure 
 ```
 .
-├── .env                # Explicit credential mapping & local file configurations
-├── docker-compose.yml  # Complete service orchestrator manifest
-├── Makefile            # Wrapper driver for automation targets
-├── init.sql            # First-boot schema initializer script
-└── oracle_data/        # Persistent Oracle XE 21c data repository
+├── .env                # Environment variables and credential
+├── docker-compose.yml  # Service configuration
+├── Makefile            # Automation driver for targets
+├── init.sql            # Schema initialization script executed on first boot
+└── oracle_data/        # Persistent storage for Oracle XE 21c data
 ```
 
 
