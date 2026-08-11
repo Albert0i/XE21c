@@ -2,7 +2,27 @@
 
 
 #### Prologue 
-**M**ost developers don’t like Oracle, and neither do I. **W**hether you like it or not, Oracle remains the world’s leading RDBMS. 
+**M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. My first choice of relational database is `MariaDB` even I tackle with Oracle on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits in small projects. 
+
+With its steep learning curve and complex management requirements, Oracle is best suited for intermediate to advanced developers. Chances are we need to set up an Oracle environment on demand, this is where [Oracle Database XE](https://www.oracle.com/database/technologies/appdev/xe.html) 21c comes into play.
+
+**What is Included**
+
+**Multitenant**: Get isolation, agility, and economies of scale by managing multiple Pluggable Databases inside your Oracle Multitenant Container Database
+
+**In-Memory**: Support real-time analytics, business intelligence, and reports by keeping your important data in the Oracle Database In-Memory column store
+
+**Partitioning**: Enhance performance, availability, and manageability of your database with data partitioning that meets diverse business requirements
+
+**Advanced Analytics**: Get valuable insights and deliver predictions from your data using Data Mining SQL, R programming, and the Oracle Data Miner UI
+
+**Advanced Security**: Protect your sensitive data at the source and build end-to-end encrypted apps with layers of security including Oracle Transparent Data Encryption and Data Redaction
+
+**Resources**:
+
+Up to 12 GB of user data
+Up to 2 GB of database RAM
+Up to 2 CPU threads
 
 
 #### I. Project Structure 
