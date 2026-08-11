@@ -2,7 +2,7 @@
 
 
 #### Prologue 
-**M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. My first choice of relational database is `MariaDB` even I tackle with Oracle on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits on small projects. 
+**M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. My first choice of relational database is `MariaDB` even I tackle with Oracle on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits in small projects. 
 
 With its steep learning curve and complex management requirements, Oracle is best suited for intermediate to advanced developers. Chances are we need to set up an Oracle environment on demand, this is where [Oracle Database XE](https://www.oracle.com/database/technologies/appdev/xe.html) 21c comes into play.
 
