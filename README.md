@@ -20,9 +20,9 @@ With its steep learning curve and complex management requirements, Oracle is bes
 
 **Resources**:
 
-Up to 12 GB of user data
-Up to 2 GB of database RAM
-Up to 2 CPU threads
+- Up to 12 GB of user data
+- Up to 2 GB of database RAM
+- Up to 2 CPU threads
 
 
 #### I. Project Structure 
