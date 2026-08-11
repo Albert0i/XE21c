@@ -175,11 +175,8 @@ config:
 
 
 #### V. Let’s get started!
-Clone the repositry from [here](https://github.com/Albert0i/XE21c.git)
-
+Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the directory.
 ```
-cd XE21c
-
 # 1. Create the persistent database
 mkdir -p ./oracle_data 
 
