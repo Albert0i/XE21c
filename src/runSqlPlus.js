@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 // Pick which user you want to connect with
 // const user = process.env.ORACLE_APP_USER;
 // const password = process.env.ORACLE_APP_USER_PASSWORD;
+
 const user = 'SYSTEM'; 
 const password = process.env.ORACLE_ROOT_PASSWORD;
 const host = process.env.ORACLE_HOST || 'localhost'; 

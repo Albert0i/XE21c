@@ -256,10 +256,87 @@ COMMIT;
 #### VII. Loading sample data
 Oracle experts typically prefer loading sample data using SQLPlus. 
 
+`runSqlPlus.js`
+```
+import 'dotenv/config';
+import { spawn } from "child_process";
+import dotenv from "dotenv";
+
+// Pick which user you want to connect with
+// const user = process.env.ORACLE_APP_USER;
+// const password = process.env.ORACLE_APP_USER_PASSWORD;
+const user = 'SYSTEM'; 
+const password = process.env.ORACLE_ROOT_PASSWORD;
+
+const host = process.env.ORACLE_HOST || 'localhost'; 
+const port = process.env.ORACLE_PORT || 1521; 
+const database = process.env.ORACLE_DATABASE || 'XEPDB1';
+
+// Build connection string command
+const conn = `${user}/${password}@${host}:${port}/${database}`;
+
+// sqlplus <connection string>
+console.log(`Launching SQL*Plus with: '${conn}'`);
+
+const sqlplus = spawn("sqlplus", [conn], { stdio: "inherit" });
+
+sqlplus.on("exit", (code) => {
+  console.log(`SQL*Plus exited with code ${code}`);
+});
+
+```
+
 ![alt npm_run_sql](img/npm_run_sql.png)
 
 
 #### VIII. Test connection
+`testConn.js` 
+```
+import 'dotenv/config'
+import oracledb from 'oracledb';
+import { createDbConfig } from './config/dbConfig.js';
+import { createRunner } from './yrunner.js';
+
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+
+const testConnection = async (config) => {
+  const runner = createRunner(config);
+  try {
+    const result = await runner.runSelectSQL(
+      "SELECT sys_context('USERENV','DB_NAME') AS db_name, user AS current_user FROM dual"
+    );
+    if (result.success) {
+      console.log(`Connection OK:`, result.rows[0]);
+
+      const banner = await runner.runSelectSQL(
+        "select banner from v$version"
+      )
+      console.log(banner.rows[0].BANNER);
+    } else {
+      console.error(`Connection FAILED:`, result.message);
+    }
+  } catch (err) {
+    console.error(`$Connection ERROR:`, err);
+  }
+};
+const host = process.env.ORACLE_HOST || 'localhost'; 
+const port = process.env.ORACLE_PORT || 1521; 
+const database = process.env.ORACLE_DATABASE || 'XEPDB1';
+
+const config = createDbConfig({
+  user: process.env.ORACLE_APP_USER,
+  password: process.env.ORACLE_APP_USER_PASSWORD,
+  // oracle-dev-scan/pdbdev_srv
+  connectString: `${host}:${port}/${database}`
+});
+
+(async () => {
+  // Show Oracle connections
+  console.log('conig =', config)
+  await testConnection(config);
+})();
+```
+
 ![alt npm_run_test](img/npm_run_test.png)
 
 
