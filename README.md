@@ -217,7 +217,6 @@ sudo chown -R 54321:54321 ./oracle_data
 -- Oracle XE
 -- For 18c and onwards, the user will be created in the default `XEPDB1`  pluggable database.
 ALTER SESSION SET CONTAINER = XEPDB1;
---
 
 -- 1. Create a custom application user profile
 CREATE USER my_test_user IDENTIFIED BY my_secure_password;
