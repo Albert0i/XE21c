@@ -254,7 +254,9 @@ COMMIT;
 
 
 #### VII. Loading sample data
-Oracle experts typically prefer loading sample data using SQLPlus. 
+Oracle experts typically prefer using SQLPlus. 
+
+![alt Copilot_20260811_170209](img/Copilot_20260811_170209.png)
 
 `runSqlPlus.js`
 ```
@@ -287,8 +289,6 @@ sqlplus.on("exit", (code) => {
 ```
 
 ![alt npm_run_sql](img/npm_run_sql.png)
-
-![alt Copilot_20260811_170209](img/Copilot_20260811_170209.png)
 
 
 #### VIII. Test connection
