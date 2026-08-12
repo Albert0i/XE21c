@@ -343,6 +343,10 @@ const config = createDbConfig({
 
 
 #### IX. Conclusion
+Oracle 21c is a little stale now, to be honest, my department is still using 19c! All discussion so far also works for 23ai and 26ai. 
+
+> **Oracle Database 23ai and 26ai are not separate product lines — 26ai is the renamed and enhanced continuation of 23ai**. In October 2025, Oracle rebranded 23ai as **Oracle AI Database 26ai**, with the internal build number `23.26.x`. The relationship is essentially: **23ai laid the foundation, 26ai consolidated and expanded it into a long‑term AI‑native platform**.
+
 ![alt Oracle Database XE 21c with Docker](img/Copilot_20260811_145412.png)
 
 
