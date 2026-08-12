@@ -254,7 +254,7 @@ COMMIT;
 
 
 #### VII. Loading sample data
-Oracle experts typically prefer using SQLPlus. 
+Typically speaking, only Oracle experts prefer using SQLPlus... 
 
 ![alt Copilot_20260811_170209](img/Copilot_20260811_170209.png)
 
