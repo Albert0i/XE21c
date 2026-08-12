@@ -6,9 +6,9 @@ way, and you can’t feel in a new way without changing your soul."<br /><br />"
 
 
 #### Prologue 
-**M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. My first choice of relational database is `MariaDB` even I tackle with Oracle on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits in small projects. 
+**M**ost developers don’t like Oracle, and neither do I. Whether one likes it or not, Oracle remains the world’s leading RDBMS. I won't recommend Oracle to anybody though I tackle with it on day to day life. To my understanding, Oracle is too much for most cases and oftentimes `SQLite` just fits in small projects. 
 
-With its steep learning curve and complex management requirements, Oracle is best suited for intermediate to advanced developers. Chances are we need to set up an Oracle environment on demand, this is where [Oracle Database XE](https://www.oracle.com/database/technologies/appdev/xe.html) 21c comes into play.
+With its steep learning curve and complex management requirements, Oracle is best suited for intermediate to advanced developers. Chances are you need to set up an Oracle environment by yourself, this is where [Oracle Database XE](https://www.oracle.com/database/technologies/appdev/xe.html) comes into play.
 
 **What is Included**
 
@@ -36,6 +36,7 @@ With its steep learning curve and complex management requirements, Oracle is bes
 ├── docker-compose.yml  # Service configuration
 ├── Makefile            # Automation driver for targets
 ├── init.sql            # Schema initialization script executed on first boot
+├── src/                # Folder for NodeJS scripts
 └── oracle_data/        # Persistent storage for Oracle XE 21c data
 ```
 
