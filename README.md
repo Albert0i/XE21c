@@ -122,7 +122,7 @@ help:
 	@echo
 	@echo "Usage: make TARGET"
 	@echo
-	@echo "Oracle Database Express Edition (XE) stack automation helper (Linux)"
+	@echo "Oracle Database XE stack automation helper (Linux)"
 	@echo
 	@echo "Targets:"
 	@echo "  up         start all services"
