@@ -36,7 +36,7 @@ With its steep learning curve and complex management requirements, Oracle is bes
 ├── docker-compose.yml  # Service configuration
 ├── Makefile            # Automation driver for targets
 ├── init.sql            # Schema initialization script executed on first boot
-├── src/                # Folder for NodeJS scripts
+├── src/                # Folder for NodeJS sources
 └── oracle_data/        # Persistent storage for Oracle XE 21c data
 ```
 
