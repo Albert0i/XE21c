@@ -11,7 +11,7 @@ const options = {
       version: '1.0.0',
       description: 'Oracle SQL Runner REST API',
       contact: {
-        name: 'API Support',
+        name: 'Alberto Iong',
         email: 'albert0i@hotmail.com',
         url: 'https://github.com/Albert0i/XE21c',
       }
