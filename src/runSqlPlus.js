@@ -16,7 +16,7 @@ const database = process.env.ORACLE_DATABASE || 'XEPDB1';
 const conn = `${user}/${password}@${host}:${port}/${database}`;
 
 // sqlplus <connection string>
-console.log(`Launching SQL*Plus with: '${conn}'`);
+console.log(`🚀 Launching SQL*Plus with: '${conn}'`);
 
 const sqlplus = spawn("sqlplus", [conn], { stdio: "inherit" });
 

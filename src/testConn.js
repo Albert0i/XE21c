@@ -31,17 +31,17 @@ const testConnection = async (config) => {
       "SELECT sys_context('USERENV','DB_NAME') AS db_name, user AS current_user FROM dual"
     );
     if (result.success) {
-      console.log(`Connection OK:`, result.rows[0]);
+      console.log(`✅ Connection OK:`, result.rows[0]);
 
       const banner = await runner.runSelectSQL(
         "select banner from v$version"
       )
       console.log(banner.rows[0].BANNER);
     } else {
-      console.error(`Connection FAILED:`, result.message);
+      console.error(`❌ Connection FAILED:`, result.message);
     }
   } catch (err) {
-    console.error(`$Connection ERROR:`, err);
+    console.error(`❌ Connection ERROR:`, err);
   }
 };
 const host = process.env.ORACLE_HOST || 'localhost'; 
