@@ -4,9 +4,8 @@
 import 'dotenv/config'
 
 const handle404 = (req, res) => {
-  setTimeout(() => {
-    res.sendStatus(404)
-  }, Math.ceil(Math.random() * Number(process.env.DELAY404)))
+  const delay = Number(process.env.DELAY404) || 1000
+  setTimeout(() => res.sendStatus(404), Math.ceil(Math.random() * delay))
 }
 
 export { handle404 }
