@@ -28,6 +28,33 @@ const router = express.Router()
 /*
    YRunner Direct
 */
+/**
+ * @openapi
+ * /api/v1/yr/runselectsql:
+ *   post:
+ *     summary: Run a SQL SELECT command
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               cmdText:
+ *                 type: string
+ *                 description: "SQL SELECT statement to execute"
+ *               lowerKeys:
+ *                 type: boolean
+ *                 description: "Return keys in lowercase"
+ *             example:
+ *               cmdText: "select * from employee where department='HR'"
+ *               lowerKeys: true
+ *     responses:
+ *       200:
+ *         description: "Query executed successfully, rows returned"
+ *       400:
+ *         description: "Query failed"
+ */
 router.post('/runselectsql', async (req, res, next) => {
   try {
     const result = await runner.runSelectSQL(req.body.cmdText, req.body.lowerKeys)
@@ -37,6 +64,33 @@ router.post('/runselectsql', async (req, res, next) => {
   }
 })
 
+/**
+ * @openapi
+ * /api/v1/yr/runvaluesql:
+ *   post:
+ *     summary: Run a SQL command that returns a single value
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               cmdText:
+ *                 type: string
+ *                 description: "SQL statement to execute"
+ *               lowerKeys:
+ *                 type: boolean
+ *                 description: "Return keys in lowercase"
+ *             example:
+ *               cmdText: "select count(*) from employee"
+ *               lowerKeys: true
+ *     responses:
+ *       200:
+ *         description: "SQL executed successfully, single value returned"
+ *       400:
+ *         description: "Execution failed"
+ */
 router.post('/runvaluesql', async (req, res, next) => {
   try {
     const result = await runner.runValueSQL(req.body.cmdText, req.body.lowerKeys)
@@ -46,6 +100,33 @@ router.post('/runvaluesql', async (req, res, next) => {
   }
 })
 
+/**
+ * @openapi
+ * /api/v1/yr/runsql:
+ *   post:
+ *     summary: Run one or more SQL commands
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               cmdTexts:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: "Array of SQL statements to execute"
+ *             example:
+ *               cmdTexts:
+ *                 - "update employee set department='HR' where id=101"
+ *                 - "delete from employee where id=102"
+ *     responses:
+ *       200:
+ *         description: "SQL commands executed successfully"
+ *       400:
+ *         description: "Execution failed"
+ */
 router.post('/runsql', async (req, res, next) => {
   try {
     const result = await runner.runSQL(req.body.cmdTexts)
@@ -55,6 +136,33 @@ router.post('/runsql', async (req, res, next) => {
   }
 })
 
+/**
+ * @openapi
+ * /api/v1/yr/runinsertsqlyieldrowid:
+ *   post:
+ *     summary: Run an INSERT SQL command and return the auto-increment row ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               cmdText:
+ *                 type: string
+ *                 description: "SQL INSERT statement to execute"
+ *               id:
+ *                 type: string
+ *                 description: "Name of the auto-increment column (default: id)"
+ *             example:
+ *               cmdText: "insert into employee(name, department) values('Alice','HR')"
+ *               id: "id"
+ *     responses:
+ *       201:
+ *         description: "Row inserted successfully, row ID returned"
+ *       400:
+ *         description: "Insert failed"
+ */
 router.post('/runinsertsqlyieldrowid', async (req, res, next) => {
   try {
     const result = await runner.runInsertSQLYieldRowID(req.body.cmdText, req.body.id)
@@ -67,7 +175,59 @@ router.post('/runinsertsqlyieldrowid', async (req, res, next) => {
 /*
    YRunner RESTful
 */
-// Get all
+/**
+ * @openapi
+ * /api/v1/yr/{table}:
+ *   get:
+ *     summary: Get all rows from a table
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Table name"
+ *       - in: query
+ *         name: _filter
+ *         schema:
+ *           type: string
+ *         description: "SQL WHERE clause filter"
+ *       - in: query
+ *         name: _sort
+ *         schema:
+ *           type: string
+ *         description: "Column name to sort by"
+ *       - in: query
+ *         name: _order
+ *         schema:
+ *           type: string
+ *         description: "Sort order, ASC or DESC"
+ *       - in: query
+ *         name: _offset
+ *         schema:
+ *           type: integer
+ *         description: "Number of rows to skip"
+ *       - in: query
+ *         name: _limit
+ *         schema:
+ *           type: integer
+ *         description: "Maximum number of rows to return"
+ *       - in: query
+ *         name: _lowerKeys
+ *         schema:
+ *           type: boolean
+ *         description: "Return keys in lowercase"
+ *       - in: query
+ *         name: _norun
+ *         schema:
+ *           type: boolean
+ *         description: "If true, return SQL text only without executing"
+ *     responses:
+ *       200:
+ *         description: "Rows retrieved successfully"
+ *       400:
+ *         description: "Query failed"
+ */
 router.get('/:table', async (req, res, next) => {
   try {
     const table = req.params.table
@@ -90,7 +250,45 @@ router.get('/:table', async (req, res, next) => {
   }
 })
 
-// Get one
+/**
+ * @openapi
+ * /api/v1/yr/{table}/{key}:
+ *   get:
+ *     summary: Get a single row by key
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Table name"
+ *       - in: path
+ *         name: key
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Key value identifying the row"
+ *       - in: query
+ *         name: _keyname
+ *         schema:
+ *           type: string
+ *         description: "Column name used as key (default: id)"
+ *       - in: query
+ *         name: _keytype
+ *         schema:
+ *           type: string
+ *         description: "Key type, either 'string' or 'number'"
+ *       - in: query
+ *         name: _lowerKeys
+ *         schema:
+ *           type: boolean
+ *         description: "Return keys in lowercase"
+ *     responses:
+ *       200:
+ *         description: "Row retrieved successfully"
+ *       400:
+ *         description: "Query failed"
+ */
 router.get('/:table/:key', async (req, res, next) => {
   try {
     const table = req.params.table
@@ -115,7 +313,35 @@ router.get('/:table/:key', async (req, res, next) => {
   }
 })
 
-// Create one
+/**
+ * @openapi
+ * /api/v1/yr/{table}:
+ *   post:
+ *     summary: Create a new row in a table
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Table name"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             description: "Fields and values to insert into the table"
+ *             example:
+ *               id: 102
+ *               name: "Alice"
+ *               department: "HR"
+ *     responses:
+ *       201:
+ *         description: "Row created successfully"
+ *       400:
+ *         description: "Insert failed"
+ */
 router.post('/:table', async (req, res, next) => {
   try {
     const table = req.params.table
@@ -142,7 +368,47 @@ router.post('/:table', async (req, res, next) => {
   }
 })
 
-// Update one
+/**
+ * @openapi
+ * /api/v1/yr/{table}/{key}:
+ *   patch:
+ *     summary: Update a row in a table
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Table name"
+ *       - in: path
+ *         name: key
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Key value identifying the row"
+ *       - in: query
+ *         name: _keyname
+ *         schema:
+ *           type: string
+ *         description: "Column name used as key (default: id)"
+ *       - in: query
+ *         name: _keytype
+ *         schema:
+ *           type: string
+ *         description: "Key type, either 'string' or 'number'"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             description: "Fields to update with new values"
+ *     responses:
+ *       200:
+ *         description: "Row updated successfully"
+ *       400:
+ *         description: "Update failed"
+ */
 router.patch('/:table/:key', async (req, res, next) => {
   try {
     const table = req.params.table
@@ -168,7 +434,40 @@ router.patch('/:table/:key', async (req, res, next) => {
   }
 })
 
-// Delete one
+/**
+ * @openapi
+ * /api/v1/yr/{table}/{key}:
+ *   delete:
+ *     summary: Delete a row from a table
+ *     parameters:
+ *       - in: path
+ *         name: table
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Table name"
+ *       - in: path
+ *         name: key
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "Key value identifying the row"
+ *       - in: query
+ *         name: _keyname
+ *         schema:
+ *           type: string
+ *         description: "Column name used as key (default: id)"
+ *       - in: query
+ *         name: _keytype
+ *         schema:
+ *           type: string
+ *         description: "Key type, either 'string' or 'number'"
+ *     responses:
+ *       204:
+ *         description: "Row deleted successfully"
+ *       400:
+ *         description: "Delete failed"
+ */
 router.delete('/:table/:key', async (req, res, next) => {
   try {
     const table = req.params.table
