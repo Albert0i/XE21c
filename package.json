@@ -1,12 +1,13 @@
 {
   "name": "xe21c",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A production-grade, single-command orchestration suite that deploys an Oracle Database Express Edition (XE) 21c instance bundled alongside an isolated, non-conflicting performance monitoring environment (Prometheus, Grafana, and an Oracle Database Metrics Exporter).",
   "main": "index.js",
   "directories": {
     "doc": "doc"
   },
   "scripts": {
+    "dev": "node src/api.js",
     "test": "watch node src/testConn.js",
     "sql": "node src/runSqlPlus.js"
   },
@@ -25,6 +26,8 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "morgan": "^1.11.0",
     "oracledb": "^7.0.1"
   }
 }

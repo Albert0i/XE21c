@@ -4,7 +4,6 @@
 import 'dotenv/config'
 import express from 'express'
 //import { runSQL, runValueSQL, runSelectSQL, runInsertSQLYieldRowID } from '../yrunner.js'
-import { handle404 } from '../middleware/handle404.js'
 import url from 'url'
 
 import oracledb from 'oracledb';
@@ -154,7 +153,5 @@ router.delete('/:table/:key', async (req, res) => {
   const result = await runner.runSQL([cmdText])
   res.status(result.success ? 204 : 400).json({ cmdText, ...result })
 })
-
-router.all('/*', handle404)
 
 export { router }
