@@ -223,7 +223,7 @@ router.post('/runinsertsqlyieldrowid', async (req, res, next) => {
  *           type: integer
  *         description: "Maximum number of rows to return"
  *       - in: query
- *         name: _lowerKeys
+ *         name: _lowerkeys
  *         schema:
  *           type: boolean
  *         description: "Return keys in lowercase"
@@ -242,7 +242,7 @@ router.get('/:table', async (req, res, next) => {
   try {
     const table = req.params.table
     const query = url.parse(req.url, true).query
-    const { _filter, _sort, _order, _offset, _limit, _lowerKeys } = query
+    const { _filter, _sort, _order, _offset, _limit, _lowerkeys } = query
 
     const cmdText = `select * from ${table} ` +
       (_filter ? `where ${_filter} ` : ' ') +
@@ -253,7 +253,7 @@ router.get('/:table', async (req, res, next) => {
 
     if (query._norun) return res.status(200).json({ cmdText })
 
-    const result = await runner.runSelectSQL(cmdText, _lowerKeys)
+    const result = await runner.runSelectSQL(cmdText, _lowerkeys)
     res.status(result.success ? 200 : 400).json({ cmdText, ...result })
   } catch (err) {
     next(err)
@@ -291,7 +291,7 @@ router.get('/:table', async (req, res, next) => {
  *           type: string
  *         description: "Key type, either 'string' or 'number'"
  *       - in: query
- *         name: _lowerKeys
+ *         name: _lowerkeys
  *         schema:
  *           type: boolean
  *         description: "Return keys in lowercase"
@@ -308,17 +308,20 @@ router.get('/:table/:key', async (req, res, next) => {
     const _keyname = query._keyname || 'id'
     const quote = query._keytype === 'string' ? "'" : ''
     const keyvalue = req.params.key
-    const _lowerKeys = query._lowerKeys
+    const _lowerkeys = query._lowerkeys
 
     const cmdText = `select * from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
 
     if (query._norun) return res.status(200).json({ cmdText })
 
-    const result = await runner.runSelectSQL(cmdText, _lowerKeys)
+    const result = await runner.runSelectSQL(cmdText, _lowerkeys)
+    //console.log('result =', result)
+    //  res.status(result.success ? 200 : 400).json({ cmdText, ...result })
     res.status(result.success ? 200 : 400).json({
       cmdText,
       success: result.success,
-      row: result.rows[0] ? result.rows[0] : null
+      row: result.success ? result.rows[0] : null,
+      ...result
     })
   } catch (err) {
     next(err)

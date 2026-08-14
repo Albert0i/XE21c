@@ -21,7 +21,7 @@ const options = {
       { url: 'http://pxeserver:3000', description: 'Production' },
     ],
      tags: [
-      { name: 'YRunner RESTful', description: 'RESTful API' },
+      { name: 'YRunner RESTful', description: 'RESTful API endpoints' },
       { name: 'YRunner Direct', description: 'Run SQL commands' },
     ],
   },

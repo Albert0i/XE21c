@@ -4,24 +4,13 @@
 import 'dotenv/config'
 import express from 'express'
 import morgan from 'morgan'
+import path from 'path'
 
 import { router as yrunnerRouter } from './routes/yrunnerRoute.js'
 import { handle404 } from './middleware/handle404.js'
 
 import swaggerUi from 'swagger-ui-express'
 import { swaggerSpec } from './swagger.js'
-
-// Custom HTML footer
-const customCss = `
-  .swagger-ui:after {
-    content: "© 2026 All Rights Reserved. Built with help from Microsoft Copilot";
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #666;
-  }
-`
 
 const app = express()
 
@@ -34,11 +23,15 @@ app.use(morgan('dev'))
 // Mount yrunner routes under /api/v1/yr
 app.use('/api/v1/yr', yrunnerRouter)
 
-// Serve Swagger UI at /
-// app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+// Serve the raw Swagger spec
+app.get('/swagger.json', (req, res) => {
+  res.json(swaggerSpec)
+})
 
-// Use customCss option in swagger-ui-express
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customCss }))
+// Serve custom Swagger UI wrapper with footer
+app.get('/', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'src', 'swagger.html'))
+})
 
 // Catch all route
 app.use(handle404)
@@ -61,6 +54,7 @@ XE21c/
   ├── src/
   │   ├── api.js               # Main Express app entry
   │   ├── swagger.js           # Swagger configuration
+  │   ├── swagger.html         # Custom footer
   │   ├── yrunner.js           # YRunner utility
   │   ├── runSqlPlus.js        # SQLPlus wrapper 
   │   ├── testConn.js          # Test connection
