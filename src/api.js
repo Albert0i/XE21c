@@ -11,6 +11,18 @@ import { handle404 } from './middleware/handle404.js'
 import swaggerUi from 'swagger-ui-express'
 import { swaggerSpec } from './swagger.js'
 
+// Custom HTML footer
+const customCss = `
+  .swagger-ui:after {
+    content: "© 2026 All Rights Reserved. Built with help from Microsoft Copilot";
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+  }
+`
+
 const app = express()
 
 // Parse JSON bodies
@@ -23,7 +35,10 @@ app.use(morgan('dev'))
 app.use('/api/v1/yr', yrunnerRouter)
 
 // Serve Swagger UI at /
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+// app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+// Use customCss option in swagger-ui-express
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { customCss }))
 
 // Catch all route
 app.use(handle404)

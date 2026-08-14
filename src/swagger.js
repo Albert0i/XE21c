@@ -20,6 +20,10 @@ const options = {
       { url: 'http://localhost:3000', description: 'Local development' },
       { url: 'http://pxeserver:3000', description: 'Production' },
     ],
+     tags: [
+      { name: 'YRunner RESTful', description: 'RESTful API' },
+      { name: 'YRunner Direct', description: 'Run SQL commands' },
+    ],
   },
   apis: ['./src/routes/*.js'],
 }

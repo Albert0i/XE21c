@@ -33,6 +33,8 @@ const router = express.Router()
  * /api/v1/yr/runselectsql:
  *   post:
  *     summary: Run a SQL SELECT command
+ *     tags:
+ *       - YRunner Direct
  *     requestBody:
  *       required: true
  *       content:
@@ -69,6 +71,8 @@ router.post('/runselectsql', async (req, res, next) => {
  * /api/v1/yr/runvaluesql:
  *   post:
  *     summary: Run a SQL command that returns a single value
+ *     tags:
+ *       - YRunner Direct
  *     requestBody:
  *       required: true
  *       content:
@@ -105,6 +109,8 @@ router.post('/runvaluesql', async (req, res, next) => {
  * /api/v1/yr/runsql:
  *   post:
  *     summary: Run one or more SQL commands
+ *     tags:
+ *       - YRunner Direct
  *     requestBody:
  *       required: true
  *       content:
@@ -141,6 +147,8 @@ router.post('/runsql', async (req, res, next) => {
  * /api/v1/yr/runinsertsqlyieldrowid:
  *   post:
  *     summary: Run an INSERT SQL command and return the auto-increment row ID
+ *     tags:
+ *       - YRunner Direct
  *     requestBody:
  *       required: true
  *       content:
@@ -180,6 +188,8 @@ router.post('/runinsertsqlyieldrowid', async (req, res, next) => {
  * /api/v1/yr/{table}:
  *   get:
  *     summary: Get all rows from a table
+ *     tags:
+ *       - YRunner RESTful
  *     parameters:
  *       - in: path
  *         name: table
@@ -255,6 +265,8 @@ router.get('/:table', async (req, res, next) => {
  * /api/v1/yr/{table}/{key}:
  *   get:
  *     summary: Get a single row by key
+ *     tags:
+ *       - YRunner RESTful
  *     parameters:
  *       - in: path
  *         name: table
@@ -318,6 +330,8 @@ router.get('/:table/:key', async (req, res, next) => {
  * /api/v1/yr/{table}:
  *   post:
  *     summary: Create a new row in a table
+ *     tags:
+ *       - YRunner RESTful
  *     parameters:
  *       - in: path
  *         name: table
@@ -373,6 +387,8 @@ router.post('/:table', async (req, res, next) => {
  * /api/v1/yr/{table}/{key}:
  *   patch:
  *     summary: Update a row in a table
+ *     tags:
+ *       - YRunner RESTful
  *     parameters:
  *       - in: path
  *         name: table
@@ -439,6 +455,8 @@ router.patch('/:table/:key', async (req, res, next) => {
  * /api/v1/yr/{table}/{key}:
  *   delete:
  *     summary: Delete a row from a table
+ *     tags:
+ *       - YRunner RESTful
  *     parameters:
  *       - in: path
  *         name: table
