@@ -140,8 +140,8 @@ router.post('/runvaluesql', async (req, res, next) => {
  *                 description: "Array of SQL statements to execute"
  *             example:
  *               cmdTexts:
- *                 - "update employees set department='HR' where id=101"
- *                 - "delete from employees where id=102"
+ *                 - "DELETE FROM employees WHERE first_name='David'"
+ *                 - "UPDATE employees SET salary = salary + 100 WHERE 1=1"
  *     responses:
  *       200:
  *         description: "SQL commands executed successfully"
@@ -178,7 +178,7 @@ router.post('/runsql', async (req, res, next) => {
  *                 type: string
  *                 description: "Name of the auto-increment column (default: id)"
  *             example:
- *               cmdText: "insert into employees(name, department) values('Alice','HR')"
+ *               cmdText: " INSERT INTO todo_list (title) VALUES ('Insert one more row to todo_list and get me the id... pleaase...') "
  *               id: "id"
  *     responses:
  *       201:
