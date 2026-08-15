@@ -375,9 +375,7 @@ router.get('/:table/:key', async (req, res, next) => {
  *             type: object
  *             description: "Fields and values to insert into the table"
  *             example:
- *               id: 102
- *               name: "Alice"
- *               department: "HR"
+ *               title: "史都華拯救宇宙失敗記 (Stuart Fails to Save the Universe) but why?"
  *     responses:
  *       201:
  *         description: "Row created successfully"
@@ -447,6 +445,8 @@ router.post('/:table', async (req, res, next) => {
  *           schema:
  *             type: object
  *             description: "Fields to update with new values"
+ *           example:
+ *             status: "FINISHED"
  *     responses:
  *       200:
  *         description: "Row updated successfully"
