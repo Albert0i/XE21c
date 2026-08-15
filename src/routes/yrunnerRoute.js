@@ -49,8 +49,8 @@ const router = express.Router()
  *                 type: boolean
  *                 description: "Return keys in lowercase"
  *             example:
- *               cmdText: "select * from employee where department='HR'"
- *               lowerKeys: true
+ *               cmdText: " SELECT * FROM employees f1, departments f2 WHERE f1.department_id = f2.department_id AND f2.department_name = 'IT' "
+ *               lowerKeys: "false"
  *     responses:
  *       200:
  *         description: "Query executed successfully, rows returned"
@@ -60,7 +60,16 @@ const router = express.Router()
 router.post('/runselectsql', async (req, res, next) => {
   try {
     const result = await runner.runSelectSQL(req.body.cmdText, req.body.lowerKeys)
-    res.status(result.success ? 200 : 400).json(result)
+
+    // Strip off meta info. 
+    res.status(result.success ? 200 : 400).json({ 
+      cmdText: req.body.cmdText, 
+      success: result.success,
+      rows: result.success ? result.rows : null,
+      error: result.error,
+      message: result.message 
+    })
+
   } catch (err) {
     next(err)
   }
@@ -87,8 +96,8 @@ router.post('/runselectsql', async (req, res, next) => {
  *                 type: boolean
  *                 description: "Return keys in lowercase"
  *             example:
- *               cmdText: "select count(*) from employee"
- *               lowerKeys: true
+ *               cmdText: "SELECT count(*) AS \"employeesCount\" FROM employees"
+ *               lowerKeys: "false"
  *     responses:
  *       200:
  *         description: "SQL executed successfully, single value returned"
@@ -98,7 +107,13 @@ router.post('/runselectsql', async (req, res, next) => {
 router.post('/runvaluesql', async (req, res, next) => {
   try {
     const result = await runner.runValueSQL(req.body.cmdText, req.body.lowerKeys)
-    res.status(result.success ? 200 : 400).json(result)
+    // res.status(result.success ? 200 : 400).json(result)
+    console.log('result =', result)
+    // Strip off meta info. 
+    res.status(result.success ? 200 : 400).json({ 
+      cmdText: req.body.cmdText, 
+      ...result
+    })
   } catch (err) {
     next(err)
   }
@@ -125,8 +140,8 @@ router.post('/runvaluesql', async (req, res, next) => {
  *                 description: "Array of SQL statements to execute"
  *             example:
  *               cmdTexts:
- *                 - "update employee set department='HR' where id=101"
- *                 - "delete from employee where id=102"
+ *                 - "update employees set department='HR' where id=101"
+ *                 - "delete from employees where id=102"
  *     responses:
  *       200:
  *         description: "SQL commands executed successfully"
@@ -163,7 +178,7 @@ router.post('/runsql', async (req, res, next) => {
  *                 type: string
  *                 description: "Name of the auto-increment column (default: id)"
  *             example:
- *               cmdText: "insert into employee(name, department) values('Alice','HR')"
+ *               cmdText: "insert into employees(name, department) values('Alice','HR')"
  *               id: "id"
  *     responses:
  *       201:
