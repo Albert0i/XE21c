@@ -254,7 +254,15 @@ router.get('/:table', async (req, res, next) => {
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSelectSQL(cmdText, _lowerkeys)
-    res.status(result.success ? 200 : 400).json({ cmdText, ...result })
+
+    // Strip off meta info. 
+    res.status(result.success ? 200 : 400).json({ 
+      cmdText, 
+      success: result.success,
+      rows: result.success ? result.rows : null,
+      error: result.error,
+      message: result.message 
+    })
   } catch (err) {
     next(err)
   }
@@ -315,13 +323,15 @@ router.get('/:table/:key', async (req, res, next) => {
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSelectSQL(cmdText, _lowerkeys)
-    //console.log('result =', result)
+    
     //  res.status(result.success ? 200 : 400).json({ cmdText, ...result })
+    // Strip off meta info. 
     res.status(result.success ? 200 : 400).json({
       cmdText,
       success: result.success,
       row: result.success ? result.rows[0] : null,
-      ...result
+      error: result.error,
+      message: result.message 
     })
   } catch (err) {
     next(err)
