@@ -5,6 +5,7 @@ import 'dotenv/config'
 import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
+import cors from 'cors' // 1. 引入 cors 套件
 
 import { router as yrunnerRouter } from './routes/yrunnerRoute.js'
 import { handle404 } from './middleware/handle404.js'
@@ -13,6 +14,10 @@ import swaggerUi from 'swagger-ui-express'
 import { swaggerSpec } from './swagger.js'
 
 const app = express()
+
+// 2. 啟用 CORS（必須放在解析 body 和路由之前）
+// 這樣做能允許不論是本機 localhost、遠端 pxeserver 還是不同的 Port 都能正常發送 API 請求
+app.use(cors())
 
 // Parse JSON bodies
 app.use(express.json())
