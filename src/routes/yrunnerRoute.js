@@ -251,7 +251,7 @@ router.get('/:table', async (req, res, next) => {
       (_offset ? `offset ${_offset} rows ` : ' ') +
       (_limit ? `fetch next ${_limit} rows only ` : ' ')
 
-    if (query._norun) return res.status(200).json({ cmdText })
+    if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSelectSQL(cmdText, _lowerkeys)
     res.status(result.success ? 200 : 400).json({ cmdText, ...result })
@@ -312,7 +312,7 @@ router.get('/:table/:key', async (req, res, next) => {
 
     const cmdText = `select * from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
 
-    if (query._norun) return res.status(200).json({ cmdText })
+    if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSelectSQL(cmdText, _lowerkeys)
     //console.log('result =', result)
@@ -376,7 +376,7 @@ router.post('/:table', async (req, res, next) => {
 
     const cmdText = `insert into ${table} (${fieldList}) values(${valueList})`
 
-    if (query._norun) return res.status(200).json({ cmdText })
+    if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSQL([cmdText])
     res.status(result.success ? 201 : 400).json({ cmdText, ...result })
@@ -444,7 +444,7 @@ router.patch('/:table/:key', async (req, res, next) => {
 
     const cmdText = `update ${table} set ${setList} where ${_keyname}=${quote}${keyvalue}${quote} `
 
-    if (query._norun) return res.status(200).json({ cmdText })
+    if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSQL([cmdText])
     res.status(result.success ? 200 : 400).json({ cmdText, ...result })
@@ -499,7 +499,7 @@ router.delete('/:table/:key', async (req, res, next) => {
 
     const cmdText = `delete from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
 
-    if (query._norun) return res.status(200).json({ cmdText })
+    if (query._norun === "true") return res.status(200).json({ cmdText })
 
     const result = await runner.runSQL([cmdText])
     res.status(result.success ? 204 : 400).json({ cmdText, ...result })
@@ -509,3 +509,11 @@ router.delete('/:table/:key', async (req, res, next) => {
 })
 
 export { router }
+
+/*
+   node-oracledb | SQL Execution
+   https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#queryoutputformats
+
+   JavaScript String to Boolean – How to Parse a Boolean in JS
+   https://www.freecodecamp.org/news/javascript-string-to-boolean/
+*/

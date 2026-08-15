@@ -13,7 +13,7 @@ export const createRunner = (dbConfig) => {
       const result = await connection.execute(cmdText);
       return {
         success: true,
-        rows: lowerKeys ? lowerObjKeyArray(result.rows) : result.rows,
+        rows: (lowerKeys === "true") ? lowerObjKeyArray(result.rows) : result.rows,
         meta: result.metaData   // <-- includes column names
       };
     } catch (err) {
@@ -28,7 +28,7 @@ export const createRunner = (dbConfig) => {
     try {
       connection = await oracledb.getConnection(dbConfig);
       const result = await connection.execute(cmdText);
-      const row = lowerKeys ? lowerObjKeyArray(result.rows)[0] : result.rows[0];
+      const row = (lowerKeys === "true") ? lowerObjKeyArray(result.rows)[0] : result.rows[0];
       return { success: true, ...row };
     } catch (err) {
       return { success: false, error: err, message: err.message, cmdText };
@@ -78,4 +78,7 @@ export const createRunner = (dbConfig) => {
 /*
    node-oracledb | SQL Execution
    https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#queryoutputformats
+
+   JavaScript String to Boolean – How to Parse a Boolean in JS
+   https://www.freecodecamp.org/news/javascript-string-to-boolean/
 */
