@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 app.use(handle404)
 
 // Start server
-const PORT = process.env.PORT || 3000
+const PORT = process.env.API_PORT || 3000
 app.listen(PORT, () => {
   console.log(`✅ API server running at http://localhost:${PORT}/api/v1/yr`)
   console.log(`📖 Swagger docs available at http://localhost:${PORT}/`)

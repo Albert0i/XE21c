@@ -5,9 +5,9 @@ export $(shell sed 's/=.*//' $(cnf))
 COMPOSE = docker compose
 
 # --- Configuration Variables ---
-IMAGE_NAME = albert0i/oracle-db-api-gateway:1.0
+# IMAGE_NAME = albert0i/oracle-db-api-gateway:1.0
 
-.PHONY: help up down restart ps logs prune test test-user config build push
+.PHONY: help up down restart ps logs prune test test-user build push config
 
 #
 # Deteccting the right PDB name...
@@ -40,9 +40,9 @@ help:
 	@echo "  prune      clear data volumes and logs (DANGER!)"
 	@echo "  test       test if admin (system) connection is online"
 	@echo "  test-user  test if app user (my_test_user) can read data"
-	@echo "  config     edit configuration"
 	@echo "  build      build API gateway image"
 	@echo "  push       push API gateway image to Docker Hub"
+	@echo "  config     edit configuration"
 	@echo " "
 
 up:
@@ -105,19 +105,19 @@ test-user:
 		) | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//${ORACLE_HOST}:${ORACLE_PORT}/${PDBNAME}; \
 	fi
 
-config:
-	nano .env
-
 
 # 1. Automated compilation target for the oracle gateway engine
 build:
-	@echo "Initializing build for $(IMAGE_NAME)..."
-	docker build -t $(IMAGE_NAME) -f Dockerfile . --no-cache 
+	@echo "Initializing build for $(API_IMAGE_NAME)..."
+	docker build -t $(API_IMAGE_NAME) -f Dockerfile . --no-cache 
 
 # 2. Automated distribution target to push the image to Docker Hub
 push:
 	@echo "Checking Docker Hub authorization..."
 	@docker system info | grep -q "Username" || (echo "❌ Error: You must run 'docker login' first!" && exit 1)
-	@echo "Pushing $(IMAGE_NAME) to Docker Hub..."
-	docker push $(IMAGE_NAME)
+	@echo "Pushing $(API_IMAGE_NAME) to Docker Hub..."
+	docker push $(API_IMAGE_NAME)
 
+
+config:
+	nano .env

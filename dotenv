@@ -5,12 +5,12 @@
 # 1. DATABASE IMAGE NAME
 # a) Oracle Database Express Edition Container / Docker images.
 #    https://hub.docker.com/r/gvenzl/oracle-xe
-ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+# ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
 # ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0-full
 
 # b) Oracle Database Free Container images.
 #    https://hub.docker.com/r/gvenzl/oracle-free
-# ORACLE_IMAGE_NAME=gvenzl/oracle-free:23.26.1
+ORACLE_IMAGE_NAME=gvenzl/oracle-free:23.26.1
 # ORACLE_IMAGE_NAME=gvenzl/oracle-free:23.26.1-full
 
 # c) Oracle AI Database 26ai Free Container Image
@@ -43,3 +43,11 @@ ORACLE_PORT=1521
 
 ORACLE_APP_USER=albertoi
 ORACLE_APP_USER_PASSWORD=my_secure_password
+
+# 6. API GATEWAY
+API_IMAGE_NAME=albert0i/oracle-db-api-gateway:1.0
+API_PORT=1522
+
+#
+# EOF (2026/08/16)
+# 
