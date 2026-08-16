@@ -264,7 +264,7 @@ router.get('/:table', async (req, res, next) => {
       (_sort ? `ORDER BY ${_sort} ` : ' ') +
       (_order ? `${_order} ` : ' ') +
       (_offset ? `OFFSET ${_offset} ROWS ` : ' ') +
-      (_limit ? `FETCH NEXR ${_limit} ROWS ONLY ` : ' ')
+      (_limit ? `FETCH NEXT ${_limit} ROWS ONLY ` : ' ')
 
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
@@ -318,6 +318,11 @@ router.get('/:table', async (req, res, next) => {
  *         schema:
  *           type: boolean
  *         description: "Return keys in lowercase"
+ *       - in: query
+ *         name: _norun
+ *         schema:
+ *           type: boolean
+ *         description: "If true, return SQL text only without executing"
  *     responses:
  *       200:
  *         description: "Row retrieved successfully"
