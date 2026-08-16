@@ -76,7 +76,7 @@ services:
 
   oracle-db-api-gateway:
     image: albert0i/oracle-db-api-gateway:1.0
-    container_name: oracle_db_api_gateway
+    container_name: oracle-db-api-gateway
     build:
       context: . # Ensures Docker reads from root (access to ./tool and ./src)
       dockerfile: Dockerfile
