@@ -81,7 +81,7 @@ services:
       context: . # Ensures Docker reads from root (access to ./tool and ./src)
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "${API_PORT}:3000"
     env_file:
       - .env # Injects credentials directly into container memory securely
     environment:

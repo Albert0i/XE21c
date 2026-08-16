@@ -17,8 +17,10 @@ const options = {
       }
     },
     servers: [
+      { url: 'http://localhost:1522', description: 'Local development (docker)' },
+      { url: 'http://pxeserver:1522', description: 'Production (docker)' },   
       { url: 'http://localhost:3000', description: 'Local development' },
-      { url: 'http://pxeserver:3000', description: 'Production' },
+      { url: 'http://pxeserver:3000', description: 'Production' }
     ],
      tags: [
       { name: 'YRunner RESTful', description: 'RESTful API endpoints' },
