@@ -380,7 +380,7 @@ router.get('/:table/:key', async (req, res, next) => {
  *             type: object
  *             description: "Fields and values to insert into the table"
  *             example:
- *               title: "\'Stuart Fails to Save the Universe (史釗域失救宇宙)\' but why?"
+ *               title: "''Stuart Fails to Save the Universe (史釗域失救宇宙)'' but why?"
  *     responses:
  *       201:
  *         description: "Row created successfully"
