@@ -73,3 +73,22 @@ services:
     # http://localhost:8080/
     # Dashboard id: 13555
     
+
+  oracle-db-api-gateway:
+    image: albert0i/oracle-db-api-gateway:1.0
+    container_name: oracle_db_api_gateway
+    build:
+      context: . # Ensures Docker reads from root (access to ./tool and ./src)
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env # Injects credentials directly into container memory securely
+    environment:
+      - ORACLE_HOST=oracle-db  # 2. OVERRIDES 'localhost' with the internal Docker service name
+      - NODE_OPTIONS=--no-deprecation  # Silences the url.parse() warning    
+    depends_on:
+      oracle-db:
+        condition: service_healthy    
+    restart: always
+  

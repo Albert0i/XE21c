@@ -4,7 +4,10 @@ export $(shell sed 's/=.*//' $(cnf))
 
 COMPOSE = docker compose
 
-.PHONY: help up down restart ps logs prune test test-user config
+# --- Configuration Variables ---
+IMAGE_NAME = albert0i/oracle-db-api-gateway:1.0
+
+.PHONY: help up down restart ps logs prune test test-user config build
 
 #
 # Deteccting the right PDB name...
@@ -38,7 +41,8 @@ help:
 	@echo "  test       test if admin (system) connection is online"
 	@echo "  test-user  test if app user (my_test_user) can read data"
 	@echo "  config     edit configuration"
-
+	@echo "  build      build API gateway image"
+	@echo " "
 
 up:
 	@mkdir -p $(ORACLE_DATA_DIR)
@@ -102,3 +106,9 @@ test-user:
 
 config:
 	nano .env
+
+
+# Automated compilation target for the oracle gateway engine
+build:
+	@echo "Initializing build for $(IMAGE_NAME)..."
+	docker build -t $(IMAGE_NAME) -f Dockerfile .

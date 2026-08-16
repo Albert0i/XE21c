@@ -1,0 +1,22 @@
+
+# Ignore local database data volumes
+oracle_data/
+prometheus_data
+grafana_data
+
+# Ignore local folders
+img
+doc
+sample
+
+# Ignore local node packages
+node_modules/
+npm-debug.log
+
+# Ignore configuration files
+.env
+
+# Ignore git logs
+.git
+.gitignore
+

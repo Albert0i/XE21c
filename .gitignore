@@ -8,3 +8,6 @@ grafana_data/
 
 # Ignore Node.js dependencies
 node_modules/
+
+## Ignore tool folder 
+tool
