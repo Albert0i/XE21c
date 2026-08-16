@@ -259,12 +259,12 @@ router.get('/:table', async (req, res, next) => {
     const query = url.parse(req.url, true).query
     const { _filter, _sort, _order, _offset, _limit, _lowerkeys } = query
 
-    const cmdText = `select * from ${table} ` +
-      (_filter ? `where ${_filter} ` : ' ') +
-      (_sort ? `order by ${_sort} ` : ' ') +
+    const cmdText = ` SELECT * FROM ${table} ` +
+      (_filter ? `WHERE ${_filter} ` : ' ') +
+      (_sort ? `ORDER BY ${_sort} ` : ' ') +
       (_order ? `${_order} ` : ' ') +
-      (_offset ? `offset ${_offset} rows ` : ' ') +
-      (_limit ? `fetch next ${_limit} rows only ` : ' ')
+      (_offset ? `OFFSET ${_offset} ROWS ` : ' ') +
+      (_limit ? `FETCH NEXR ${_limit} ROWS ONLY ` : ' ')
 
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
@@ -333,7 +333,7 @@ router.get('/:table/:key', async (req, res, next) => {
     const keyvalue = req.params.key
     const _lowerkeys = query._lowerkeys
 
-    const cmdText = `select * from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
+    const cmdText = ` SELECT * FROM ${table} WHERE ${_keyname}=${quote}${keyvalue}${quote}`
 
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
@@ -375,7 +375,7 @@ router.get('/:table/:key', async (req, res, next) => {
  *             type: object
  *             description: "Fields and values to insert into the table"
  *             example:
- *               title: "史都華拯救宇宙失敗記 (Stuart Fails to Save the Universe) but why?"
+ *               title: "'Stuart Fails to Save the Universe (史釗域失救宇宙)' but why?"
  *     responses:
  *       201:
  *         description: "Row created successfully"
@@ -397,7 +397,7 @@ router.post('/:table', async (req, res, next) => {
       valueList += (typeof value === 'string' ? "'" : '') + value + (typeof value === 'string' ? "'" : '')
     }
 
-    const cmdText = `insert into ${table} (${fieldList}) values(${valueList})`
+    const cmdText = ` INSERT INTO ${table} (${fieldList}) VALUES(${valueList})`
 
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
@@ -467,7 +467,7 @@ router.patch('/:table/:key', async (req, res, next) => {
       setList += `${key}=${(typeof value === 'string' ? "'" : '')}${value}${(typeof value === 'string' ? "'" : '')}`
     }
 
-    const cmdText = `update ${table} set ${setList} where ${_keyname}=${quote}${keyvalue}${quote} `
+    const cmdText = ` UPDATE ${table} SET ${setList} WHERE ${_keyname}=${quote}${keyvalue}${quote} `
 
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
@@ -522,7 +522,7 @@ router.delete('/:table/:key', async (req, res, next) => {
     const quote = query._keytype === 'string' ? "'" : ''
     const keyvalue = req.params.key
 
-    const cmdText = `delete from ${table} where ${_keyname}=${quote}${keyvalue}${quote}`
+    const cmdText = ` DELETE FROM ${table} WHERE ${_keyname}=${quote}${keyvalue}${quote}`
 
     if (query._norun === "true") return res.status(200).json({ cmdText })
 
