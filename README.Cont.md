@@ -497,7 +497,9 @@ Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving 
 
 
 #### Epilogue
-> 
+> "The things we dream have just one side. We can’t walk around them to see what’s on the other side. The problem with the things of life is that we can look at them from all sides. The things we dream have, like our souls,* only the side that we see."
+
+> "As coisas sonhadas só têm o lado de cá... Não se lhes pode ver o outro lado... Não se pode andar à roda delas... O mal das coisas da vida é que as podemos ir olhando por todos os lados... As coisas de sonho só têm o lado que vemos... Têm amores só puros, como as nossas almas’."
 
 
 ### EOF (2026/08/28)
