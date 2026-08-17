@@ -44,18 +44,247 @@ It is tedium to install softwares again and again, it is even more tedium to thi
 
 
 #### II. `.env`
+```
+ORACLE_IMAGE_NAME=gvenzl/oracle-xe:21.3.0
+ORACLE_ROOT_PASSWORD=123456
+ORACLE_DATABASE=mypdb
+ORACLE_CONTAINER_NAME=oracle-db
+ORACLE_DATA_DIR=./oracle_data
+
+ORACLE_APP_USER=my_user
+ORACLE_APP_USER_PASSWORD=my_password
+
+API_IMAGE_NAME=albert0i/oracle-db-api-gateway:1.0
+API_PORT=1522
+```
 
 
 #### III. `docker-compose.yml` 
+```
+#version: "3.8"
+
+services:
+  oracle-db:
+    image: ${ORACLE_IMAGE_NAME}
+    container_name: ${ORACLE_CONTAINER_NAME}
+    ports:
+      - "${ORACLE_PORT}:1521"
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_ROOT_PASSWORD}
+      ORACLE_DATABASE: ${ORACLE_DATABASE}
+      APP_USER: ${ORACLE_APP_USER}
+      APP_USER_PASSWORD: ${ORACLE_APP_USER_PASSWORD}
+    volumes:
+      - ${ORACLE_DATA_DIR}:/opt/oracle/oradata
+      # Map your initialization script safely
+      - ./init.sql:/container-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  oracle-exporter:
+    image: iamseth/oracledb_exporter:latest
+    container_name: oracle-exporter
+    environment:
+      # Connects using system admin credentials to scrape global database activity
+      DATA_SOURCE_NAME: "oracle://system:${ORACLE_ROOT_PASSWORD}@oracle-db:1521/${ORACLE_DATABASE}"
+    ports:
+      - "9161:9161"
+    links:
+      - oracle-db:oracle-db
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    restart: unless-stopped
+    # http://localhost:9161/metrics
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: oracle-prometheus
+    user: "1000:1000"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus_data:/prometheus
+    ports:
+      - "9091:9090"  # <-- Explicitly mapped to 9091 to avoid host port allocation conflicts
+    depends_on:
+      - oracle-exporter
+    restart: unless-stopped
+    # http://localhost:9091/targets
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: oracle-grafana
+    user: "1000:1000"
+    ports:
+      - "8080:3000"  # <-- Changed host port from 3000 to 8080
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    # http://localhost:8080/
+    # Dashboard id: 13555
+
+  oracle-db-api-gateway:
+    image: albert0i/oracle-db-api-gateway:1.0
+    container_name: oracle-db-api-gateway
+    build:
+      context: . # Ensures Docker reads from root (access to ./tool and ./src)
+      dockerfile: Dockerfile
+    ports:
+      - "${API_PORT}:3000"
+    env_file:
+      - .env # Injects credentials directly into container memory securely
+    environment:
+      - ORACLE_HOST=oracle-db  # 2. OVERRIDES 'localhost' with the internal Docker service name
+      - NODE_OPTIONS=--no-deprecation  # Silences the url.parse() warning    
+    depends_on:
+      oracle-db:
+        condition: service_healthy    
+    restart: always
+```
 
 
 #### IV. `Makefile`
+```
+cnf ?= .env
+include $(cnf)
+export $(shell sed 's/=.*//' $(cnf))
+
+COMPOSE = docker compose
+
+.PHONY: help up down restart ps logs prune test test-user build push config
+
+#
+# Deteccting the right PDB name...
+#
+ifneq ($(findstring xe,$(ORACLE_IMAGE_NAME)),)
+    PDBNAME := XEPDB1
+	IMAGE_TYPE = Express
+else ifneq ($(findstring free,$(ORACLE_IMAGE_NAME)),)
+    PDBNAME := FREEPDB1
+	IMAGE_TYPE = Free
+else
+    PDBNAME := XEPDB1
+	IMAGE_TYPE = Express
+endif
+# $(info ℹ️ Resolved Database PDBNAME: $(PDBNAME))
+
+
+help:
+	@echo
+	@echo "Usage: make TARGET"
+	@echo
+	@echo "Oracle Database ${IMAGE_TYPE} Edition stack automation helper (Linux)"
+	@echo
+	@echo "Targets:"
+	@echo "  up         start all services"
+	@echo "  down       stop all services and delete volumes"
+	@echo "  restart    restart services"
+	@echo "  ps         show running containers"
+	@echo "  logs       show logs"
+	@echo "  prune      clear data volumes and logs (DANGER!)"
+	@echo "  test       test if admin (system) connection is online"
+	@echo "  test-user  test if app user (my_test_user) can read data"
+	@echo "  build      build API gateway image"
+	@echo "  push       push API gateway image to Docker Hub"
+	@echo "  config     edit configuration"
+	@echo " "
+
+up:
+	@mkdir -p $(ORACLE_DATA_DIR)
+	$(COMPOSE) up -d --remove-orphans
+
+down:
+	$(COMPOSE) down -v
+
+restart:
+	$(COMPOSE) restart
+
+ps:
+	$(COMPOSE) ps
+
+logs:
+	$(COMPOSE) logs -f
+
+prune:
+	@echo "⚠️ Warning: Clearing data directories, volumes, and monitoring logs..."
+	$(COMPOSE) down -v
+	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data || true
+	
+	@echo "🛠️ Re-creating clean local directories..."
+	mkdir -p $(ORACLE_DATA_DIR) ./prometheus_data ./grafana_data
+	
+	@echo "🔒 Setting secure ownership and permission boundaries..."
+	sudo chown -R 54321:54321 $(ORACLE_DATA_DIR)
+	chown -R $$USER:$$USER ./grafana_data ./prometheus_data
+	chmod 755 ./grafana_data ./prometheus_data
+	@echo "✨ Prune completed successfully! Environment is fresh and clean."
+
+test:
+	@echo "Checking Oracle container health and system user credentials..."
+	@if [ "$$(docker inspect -f '{{.State.Running}}' $(ORACLE_CONTAINER_NAME) 2>/dev/null)" != "true" ]; then \
+		echo "❌ Connection failed! The Docker container '$(ORACLE_CONTAINER_NAME)' is stopped or down."; \
+		exit 0; \
+	elif docker exec -i $(ORACLE_CONTAINER_NAME) sh -c \
+		'echo "SELECT 1 FROM DUAL;" | sqlplus -S system/$(ORACLE_ROOT_PASSWORD)@//${ORACLE_HOST}:${ORACLE_PORT}/${PDBNAME}' 2>&1 | grep -q "ORA-"; then \
+		echo "❌ Connection failed! Database is still booting up or credentials mismatch."; \
+		exit 0; \
+	else \
+		echo "🎉 Connection successful! Oracle ${IMAGE_TYPE} is online and ready."; \
+	fi
+
+test-user:
+	@echo "Testing connection for custom user 'my_test_user' against ${PDBNAME}..."
+	@if [ "$$(docker inspect -f '{{.State.Running}}' $(ORACLE_CONTAINER_NAME) 2>/dev/null)" != "true" ]; then \
+		echo "❌ Connection failed! The Docker container '$(ORACLE_CONTAINER_NAME)' is stopped or down."; \
+		exit 0; \
+	else \
+		( \
+			echo "SET PAGESIZE 50"; \
+			echo "SET LINESIZE 120"; \
+			echo "COLUMN id FORMAT 9999"; \
+			echo "COLUMN title FORMAT A80"; \
+			echo "COLUMN status FORMAT A10"; \
+			echo "SELECT id, title, status FROM todo_list;"; \
+			echo "EXIT;"; \
+		) | docker exec -i $(ORACLE_CONTAINER_NAME) sqlplus -S my_test_user/my_secure_password@//${ORACLE_HOST}:${ORACLE_PORT}/${PDBNAME}; \
+	fi
+
+# 1. Automated compilation target for the oracle gateway engine
+build:
+	@echo "Initializing build for $(API_IMAGE_NAME)..."
+	docker build -t $(API_IMAGE_NAME) -f Dockerfile . --no-cache 
+
+# 2. Automated distribution target to push the image to Docker Hub
+push:
+	@echo "Checking Docker Hub authorization..."
+	@docker system info | grep -q "Username" || (echo "❌ Error: You must run 'docker login' first!" && exit 1)
+	@echo "Pushing $(API_IMAGE_NAME) to Docker Hub..."
+	docker push $(API_IMAGE_NAME)
+
+config:
+	nano .env
+```
 
 
 #### V. Let’s get started!
 
 
 #### VI. `init.sql` 
+```
+```
 
 
 #### VII. Loading `todo_list`
