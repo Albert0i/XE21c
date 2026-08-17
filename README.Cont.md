@@ -280,11 +280,13 @@ config:
 
 
 #### V. Let’s get started!
-Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the folder.
-
+Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the folder. The easiest way to create data folders and set permissions is: 
 ```
 make prune
+```
 
+To run the stack: 
+```
 make up
 ```
 
