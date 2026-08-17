@@ -281,8 +281,11 @@ config:
 
 #### V. Let’s get started!
 Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the folder.
+
 ```
 make prune
+
+make up
 ```
 
 
