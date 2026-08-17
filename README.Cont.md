@@ -410,7 +410,7 @@ SELECT * FROM todo_list;
 
 
 #### VIII. Summary
-Mon Ami, our journey begins from Docker and ends in Docker... Problem solving is a kind of journey and so does *life*... 
+Mon Ami, our journey begins from Docker and ends in Docker... Problem solving is a journey and so does *life*... 
 
 
 ![alt img/vlcsnap-2026-08-13-19h22m30s018](img/vlcsnap-2026-08-13-19h22m30s018.png)
