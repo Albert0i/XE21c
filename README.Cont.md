@@ -4,11 +4,12 @@
 
 
 #### Prologue
+It is tedium to install softwares again and again, it is even more tedium to think about the tedium itself... To work with application development, nine out of ten you need a persistent storage, either SQL, NoSQL or simply a key-value store. 
 
 
 #### I. Project Structure
 ```
-XE21c/
+  .
   ├── package.json
   ├── .env                     # Environment variables (DB connection, secrets)
   ├── docker-compose.yml       # Container orchestration
