@@ -14,7 +14,10 @@ XE21c/
   ├── docker-compose.yml       # Container orchestration
   ├── Makefile                 # Automation tasks
   ├── init.sql                 # Initialization script executed on first boot
+  ├── oracle_data/             # Persistent storage for Oracle XE 21c data
   ├── prometheus.yml           # Configuration file for Prometheus
+  ├── prometheus_data/         # Persistent storage for Prometheus data
+  ├── grafana_data/            # Persistent storage for Grafana data
   ├── src/
   │   ├── api.js               # Main Express app entry
   │   ├── swagger.js           # Swagger configuration
