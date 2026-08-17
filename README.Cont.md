@@ -6,7 +6,37 @@
 #### Prologue
 
 
-#### I. Full Project Structure
+#### I. Project Structure
+```
+XE21c/
+  ├── package.json
+  ├── .env                     # Environment variables (DB connection, secrets)
+  ├── docker-compose.yml       # Container orchestration
+  ├── Makefile                 # Automation tasks
+  ├── init.sql                 # Initialization script executed on first boot
+  ├── prometheus.yml           # Configuration file for Prometheus
+  ├── src/
+  │   ├── api.js               # Main Express app entry
+  │   ├── swagger.js           # Swagger configuration
+  │   ├── swagger.html         # Custom footer
+  │   ├── yrunner.js           # YRunner utility
+  │   ├── runSqlPlus.js        # SQLPlus NodeJS wrapper 
+  │   ├── testConn.js          # Test connection
+  │   ├── config/              # Configuration folder
+  │   │   └── dbConfig.js      # Oracle database config
+  │   ├── routes/              # Route definitions
+  │   │   └── yrunnerRoute.js  # YRunner route
+  │   ├── middleware/          # Custom middleware
+  │   │   └── handle404.js     # Catch-all 404 handler
+  │   └── utils/               # Utility folder
+  │       └── lowerKeys.js     # Convert keys to lowercase
+  ├── sample/                  # Sample data folder
+  │   └── load_sample.sql      # Employes database
+  ├── tool/                    # Tool folder
+  │   ├── instantclient-basic-linux.x64-23.26.3.0.0.zip   # Oracle Instant Client
+  │   └── instantclient-sqlplus-linux.x64-23.26.3.0.0.zip # SQLPlus Package
+  └── docs/                    # Documentation folder
+```
 
 
 #### II. `.env`
