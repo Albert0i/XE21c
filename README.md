@@ -1,8 +1,6 @@
 ### Oracle Database XE 21c with Docker
 
-> "The only way you can have new sensations is by forging a new soul.
-It’s useless to try to feel new things without feeling them in a new
-way, and you can’t feel in a new way without changing your soul."<br /><br />"A única maneira de teres sensações novas é construíres-te uma alma nova. Baldado esforço o teu se queres sentir outras coisas sem sentires de outra maneira, e sentires de outra maneira sem mudares de alma."<br/>--- The Book of Disquiet by Fernando Pessoa
+> "The only way you can have new sensations is by forging a new soul. It’s useless to try to feel new things without feeling them in a new way, and you can’t feel in a new way without changing your soul."<br /><br />"A única maneira de teres sensações novas é construíres-te uma alma nova. Baldado esforço o teu se queres sentir outras coisas sem sentires de outra maneira, e sentires de outra maneira sem mudares de alma."<br/>--- The Book of Disquiet by Fernando Pessoa
 
 
 #### Prologue 

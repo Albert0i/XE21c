@@ -1,10 +1,10 @@
 ### Oracle Database XE 21c with Docker (Cont)
 
-> 
+> "The world belongs to those who don’t feel. The essential condition for being a practical man is the absence of sensibility. ... The one who ordains is the one who doesn’t feel. The one who succeeds is the one who thinks only of what is needed for success." <br /><br />"O mundo é de quem não sente. A condição essencial para se ser um homem prático é a ausência de sensibilidade. A qualidade principal na prática. ... Manda quem não sente. Vence quem pensa só o que precisa para vencer.."<br/>--- The Book of Disquiet by Fernando Pessoa
 
 
 #### Prologue
-It is tedium to install softwares again and again, it is even more tedium to think about the tedium itself... To work with application development, nine out of ten you need a persistent storage, either SQL, NoSQL or simply a key-value store. 
+It is tedious to install software again and again; it is even more tedious to think about the tedium itself. In application development, nine out of ten times you need persistent storage — SQL, NoSQL, or simply a key‑value store.
 
 
 #### I. Project Structure
