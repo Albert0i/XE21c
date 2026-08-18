@@ -74,69 +74,21 @@ services:
     # Dashboard id: 13555
     
 
-  # oracle-db-api-gateway:
-  #   image: albert0i/oracle-db-api-gateway:1.0
-  #   container_name: oracle-db-api-gateway
-  #   build:
-  #     context: . # Ensures Docker reads from root (access to ./tool and ./src)
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "${API_PORT}:3000"
-  #   env_file:
-  #     - .env # Injects credentials directly into container memory securely
-  #   environment:
-  #     - ORACLE_HOST=oracle-db  # 2. OVERRIDES 'localhost' with the internal Docker service name
-  #     - NODE_OPTIONS=--no-deprecation  # Silences the url.parse() warning    
-  #   depends_on:
-  #     oracle-db:
-  #       condition: service_healthy    
-  #   restart: always
-  
-  # Instance 1: Dedicated first worker gateway
-  oracle-db-api-gateway-1:
+  oracle-db-api-gateway:
     image: albert0i/oracle-db-api-gateway:1.0
-    container_name: oracle-db-api-gateway-1
+    container_name: oracle-db-api-gateway
     build:
-      context: .
+      context: . # Ensures Docker reads from root (access to ./tool and ./src)
       dockerfile: Dockerfile
-    # Exposed to internal network only, remove host ports mapping to avoid conflicts
-    env_file:
-      - .env
-    environment:
-      - ORACLE_HOST=oracle-db  
-      - NODE_OPTIONS=--no-deprecation  
-    depends_on:
-      oracle-db:
-        condition: service_healthy    
-    restart: always
-
-  # Instance 2: Dedicated second worker gateway
-  oracle-db-api-gateway-2:
-    image: albert0i/oracle-db-api-gateway:1.0
-    container_name: oracle-db-api-gateway-2
-    build:
-      context: .
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    environment:
-      - ORACLE_HOST=oracle-db  
-      - NODE_OPTIONS=--no-deprecation  
-    depends_on:
-      oracle-db:
-        condition: service_healthy    
-    restart: always
-
-  # Load Balancer: NGINX distributes traffic between Instance 1 and Instance 2
-  api-gateway-load-balancer:
-    image: nginx:alpine
-    container_name: api-gateway-load-balancer
     ports:
-      # Maps your original configured API_PORT to the balancer engine
-      - "${API_PORT}:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - "${API_PORT}:3000"
+    env_file:
+      - .env # Injects credentials directly into container memory securely
+    environment:
+      - ORACLE_HOST=oracle-db  # 2. OVERRIDES 'localhost' with the internal Docker service name
+      - NODE_OPTIONS=--no-deprecation  # Silences the url.parse() warning    
     depends_on:
-      - oracle-db-api-gateway-1
-      - oracle-db-api-gateway-2
+      oracle-db:
+        condition: service_healthy    
     restart: always
+  
