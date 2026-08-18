@@ -346,15 +346,25 @@ config:
 
 
 #### VI. Let’s get started!
-Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the folder. The easiest way to create data folders and set permissions is: 
+Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the folder. 
 ```
+cp dotenv .env 
+
 make prune
 ```
+![alt make](img/make-cont.png)
 
-To run the stack: 
-```
-make up
-```
+![alt make up ps](img/make-cont-up-ps.png)
+
+![alt grafana-1](img/grafana-1.png)
+
+![alt grafana-2](img/grafana-2.png)
+
+![alt api-gateway-1](img/api-gateway-1.png)
+
+![alt api-gateway-2](img/api-gateway-2.png)
+
+![alt api-gateway-3](img/api-gateway-3.png)
 
 
 #### VII. `init.sql` 
@@ -476,7 +486,7 @@ SELECT * FROM todo_list;
 
 
 #### IX. Summary
-Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving is a journey — and so is life.
+Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving is a kind of journey and so is *life*. 
 
 ![alt img/vlcsnap-2026-08-13-19h22m30s018](img/vlcsnap-2026-08-13-19h22m30s018.png)
 
