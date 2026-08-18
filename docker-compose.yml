@@ -132,11 +132,22 @@ services:
     image: nginx:alpine
     container_name: api-gateway-load-balancer
     ports:
-      # Maps your original configured API_PORT to the balancer engine
       - "${API_PORT}:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - oracle-db-api-gateway-1
       - oracle-db-api-gateway-2
+    restart: always
+
+  # 🔥 New: Scrapes statistics from NGINX on port 80 and reformats them
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx-exporter
+    command:
+      - "-nginx.scrape-uri=http://api-gateway-load-balancer/nginx_status"
+    ports:
+      - "9113:9113"
+    depends_on:
+      - api-gateway-load-balancer
     restart: always

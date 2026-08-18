@@ -8,3 +8,6 @@ scrape_configs:
     static_configs:
       - targets: ['oracle-exporter:9161']
 
+  - job_name: 'nginx-load-balancer'
+    static_configs:
+      - targets: ['nginx-exporter:9113']

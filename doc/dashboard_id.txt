@@ -2,3 +2,6 @@
 📊 Oracle Dashboard ID: 13555
 
 https://grafana.com/grafana/dashboards/
+
+official NGINX Dashboard ID: 11199
+
