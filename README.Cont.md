@@ -4,7 +4,7 @@
 
 
 #### Prologue
-It is tedious to install software again and again; it is even more tedious to think about the tedium itself. In application development, nine out of ten times you need persistent storage — SQL, NoSQL, or simply a key‑value store.
+It is tedious to install software again and again; it is even more tedious to think about the tedium itself. In application development, nine out of ten times you need persistent storage, may it be SQL, NoSQL, or simply a key‑value store.
 
 
 #### I. Project Structure
