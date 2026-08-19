@@ -135,26 +135,71 @@ services:
       - prometheus
     restart: unless-stopped
     # http://localhost:8080/
-    # Dashboard id: 13555
+    # Dashboard id: 13555   
 
-  oracle-db-api-gateway:
+  # Instance 1: Dedicated first worker gateway
+  oracle-db-api-gateway-1:
     image: albert0i/oracle-db-api-gateway:1.0
-    container_name: oracle-db-api-gateway
+    container_name: oracle-db-api-gateway-1
     build:
-      context: . # Ensures Docker reads from root (access to ./tool and ./src)
+      context: .
       dockerfile: Dockerfile
-    ports:
-      - "${API_PORT}:3000"
+    # Exposed to internal network only, remove host ports mapping to avoid conflicts
     env_file:
-      - .env # Injects credentials directly into container memory securely
+      - .env
     environment:
-      - ORACLE_HOST=oracle-db  # 2. OVERRIDES 'localhost' with the internal Docker service name
-      - NODE_OPTIONS=--no-deprecation  # Silences the url.parse() warning    
+      - ORACLE_HOST=oracle-db  
+      - NODE_OPTIONS=--no-deprecation  
     depends_on:
       oracle-db:
         condition: service_healthy    
     restart: always
+
+  # Instance 2: Dedicated second worker gateway
+  oracle-db-api-gateway-2:
+    image: albert0i/oracle-db-api-gateway:1.0
+    container_name: oracle-db-api-gateway-2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - ORACLE_HOST=oracle-db  
+      - NODE_OPTIONS=--no-deprecation  
+    depends_on:
+      oracle-db:
+        condition: service_healthy    
+    restart: always
+
+  # Load Balancer: NGINX distributes traffic between Instance 1 and Instance 2
+  api-gateway-load-balancer:
+    image: nginx:alpine
+    container_name: api-gateway-load-balancer
+    ports:
+      - "${API_PORT}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - oracle-db-api-gateway-1
+      - oracle-db-api-gateway-2
+    restart: always
+
+  # 🔥 New: Scrapes statistics from NGINX on port 80 and reformats them
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx-exporter
+    command:
+      - "-nginx.scrape-uri=http://api-gateway-load-balancer/nginx_status"
+    ports:
+      - "9113:9113"
+    depends_on:
+      - api-gateway-load-balancer
+    restart: always
 ```
+
+![alt Oracle DB & API Gateway Architecture](img/Copilot_20260819_151413-1.PNG)
+
 
 #### VI. `Dockerfile`
 ```
