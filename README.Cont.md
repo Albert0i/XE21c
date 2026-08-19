@@ -1,6 +1,6 @@
 ### Oracle Database XE 21c with Docker (Cont)
 
-> "The world belongs to those who don’t feel. The essential condition for being a practical man is the absence of sensibility. ... The one who ordains is the one who doesn’t feel. The one who succeeds is the one who thinks only of what is needed for success." <br /><br />"O mundo é de quem não sente. A condição essencial para se ser um homem prático é a ausência de sensibilidade. A qualidade principal na prática. ... Manda quem não sente. Vence quem pensa só o que precisa para vencer.."<br/>--- The Book of Disquiet by Fernando Pessoa
+> "I see life as a roadside inn where I have to stay until the coach from the abyss pulls up. I don’t know where it will take me, because I don’t know anything. I could see this inn as a prison, for I’m compelled to wait in it; I could see it as a social centre, for it’s here that I meet others."<br /><br />"Considero a vida uma estalagem onde tenho que me demorar até que chegue a diligência do abismo. Não sei onde ela me levará, porque não sei nada. Poderia considerar esta estalagem uma prisão, porque estou compelido a aguardar nela; poderia considerá-la um lugar de sociáveis, porque aqui me encontro com outros."<br/>--- The Book of Disquiet by Fernando Pessoa
 
 
 #### Prologue
@@ -552,9 +552,9 @@ Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving 
 
 
 #### Epilogue
-> "The things we dream have just one side. We can’t walk around them to see what’s on the other side. The problem with the things of life is that we can look at them from all sides. The things we dream have, like our souls,* only the side that we see."
+> "I see life as a roadside inn where I have to stay until the coach from the abyss pulls up. I don’t know where it will take me, because I don’t know anything. I could see this inn as a prison, for I’m compelled to wait in it; I could see it as a social centre, for it’s here that I meet others."
 
-> "As coisas sonhadas só têm o lado de cá... Não se lhes pode ver o outro lado... Não se pode andar à roda delas... O mal das coisas da vida é que as podemos ir olhando por todos os lados... As coisas de sonho só têm o lado que vemos... Têm amores só puros, como as nossas almas’."
+> "Considero a vida uma estalagem onde tenho que me demorar até que chegue a diligência do abismo. Não sei onde ela me levará, porque não sei nada. Poderia considerar esta estalagem uma prisão, porque estou compelido a aguardar nela; poderia considerá-la um lugar de sociáveis, porque aqui me encontro com outros."
 
 
 ### EOF (2026/08/28)
