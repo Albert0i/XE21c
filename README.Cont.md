@@ -410,13 +410,13 @@ make prune
 
 ![alt make ps](img/make-cont-ps.png)
 
-4. [Grafana](https://grafana.com/) Dashboards: 
-
-![alt grafana-1](img/grafana-1.png)
-
-5. [Prometheus](https://prometheus.io/)
+4. [Prometheus](https://prometheus.io/)
 
 ![alt prometheus-1](img/prometheus-1.png)
+
+5. [Grafana](https://grafana.com/) Dashboards: 
+
+![alt grafana-1](img/grafana-1.png)
 
 6. Dashboard for [Nginx](https://nginx.org/): 
 
