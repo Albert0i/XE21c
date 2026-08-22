@@ -414,23 +414,27 @@ make prune
 
 ![alt grafana-1](img/grafana-1.png)
 
-5. Dashboard for [Nginx](https://nginx.org/): 
+5. [Prometheus](https://prometheus.io/)
+
+![alt prometheus-1](img/prometheus-1.png)
+
+6. Dashboard for [Nginx](https://nginx.org/): 
 
 ![alt grafana-2](img/grafana-2.png)
 
-6. Dashboard for Oracle: 
+7. Dashboard for Oracle: 
 
 ![alt grafana-1](img/grafana-1.png)
 
-7. API Gateway: 
+8. API Gateway: 
 
 ![alt api-gateway-1](img/api-gateway-1.png)
 
-8. RESTful API: 
+9. RESTful API: 
 
 ![alt api-gateway-2](img/api-gateway-2.png)
 
-9. SQL Direct API:
+10. SQL Direct API:
 
 ![alt api-gateway-3](img/api-gateway-3.png)
 
