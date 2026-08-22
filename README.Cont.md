@@ -552,9 +552,8 @@ Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving 
 
 
 #### Epilogue
-> "I see life as a roadside inn where I have to stay until the coach from the abyss pulls up. I don’t know where it will take me, because I don’t know anything. I could see this inn as a prison, for I’m compelled to wait in it; I could see it as a social centre, for it’s here that I meet others."
 
-> "Considero a vida uma estalagem onde tenho que me demorar até que chegue a diligência do abismo. Não sei onde ela me levará, porque não sei nada. Poderia considerar esta estalagem uma prisão, porque estou compelido a aguardar nela; poderia considerá-la um lugar de sociáveis, porque aqui me encontro com outros."
+[![alt The Road So Far](img/The-Road-So-Far-1.png)](https://youtu.be/rrTZ-2ZjarE)
 
 
 ### EOF (2026/08/28)
