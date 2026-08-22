@@ -43,6 +43,8 @@ It is tedious to install software again and again; it is even more tedious to th
   └── docs/                    # Documentation folder
 ```
 
+![alt Oracle DB & API Gateway Architecture](img/Copilot_20260819_151413-1.PNG)
+
 
 #### II. `.env`
 ```
@@ -197,8 +199,6 @@ services:
       - api-gateway-load-balancer
     restart: always
 ```
-
-![alt Oracle DB & API Gateway Architecture](img/Copilot_20260819_151413-1.PNG)
 
 
 #### VI. `Dockerfile`
