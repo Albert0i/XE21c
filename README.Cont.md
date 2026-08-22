@@ -398,39 +398,39 @@ cp dotenv .env
 make prune
 ```
 
-All available functions: 
+1. All available functions: 
 
 ![alt make](img/make-cont.png)
 
-Start the whole stack:
+2. Start the whole stack:
 
 ![alt make up](img/make-cont-up.png)
 
-Check running containers: 
+3. Check running containers: 
 
 ![alt make ps](img/make-cont-ps.png)
 
-[Grafana](https://grafana.com/) Dashboards: 
+4. s[Grafana](https://grafana.com/) Dashboards: 
 
 ![alt grafana-1](img/grafana-1.png)
 
-Dashboard for [Nginx](https://nginx.org/): 
+5. Dashboard for [Nginx](https://nginx.org/): 
 
 ![alt grafana-2](img/grafana-2.png)
 
-Dashboard for Oracle: 
+6. Dashboard for Oracle: 
 
 ![alt grafana-1](img/grafana-1.png)
 
-API Gateway: 
+7. API Gateway: 
 
 ![alt api-gateway-1](img/api-gateway-1.png)
 
-RESTful API: 
+8. RESTful API: 
 
 ![alt api-gateway-2](img/api-gateway-2.png)
 
-SQL Direct API:
+9. SQL Direct API:
 
 ![alt api-gateway-3](img/api-gateway-3.png)
 
