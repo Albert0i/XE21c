@@ -391,7 +391,7 @@ config:
 
 
 #### VI. Let’s get started!
-Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change to the `XE21c` folder. 
+Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change to `XE21c` folder. 
 ```
 cp dotenv .env 
 
@@ -410,7 +410,7 @@ make prune
 
 ![alt make ps](img/make-cont-ps.png)
 
-4. s[Grafana](https://grafana.com/) Dashboards: 
+4. [Grafana](https://grafana.com/) Dashboards: 
 
 ![alt grafana-1](img/grafana-1.png)
 
