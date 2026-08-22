@@ -555,5 +555,17 @@ Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving 
 
 [![alt The Road So Far](img/The-Road-So-Far-1.png)](https://youtu.be/rrTZ-2ZjarE)
 
+- [The Road Not Taken](https://github.com/Albert0i/The-Road-Not-Taken) - A Quest for Desktop Replacements (2026/04/01)
+- [一個人的戰爭](https://github.com/Albert0i/The-Road-Not-Taken/blob/main/README-Cont.md) - Sequel to “The Feather of Chromebook” (2026/04/17)
+- [726 Investigation Report](https://github.com/Albert0i/The-Road-Not-Taken/blob/main/README-Cont2.md) - Sequel to “The Touch of Vintage” (2026/05/29)
+- redaction - Redaction Script Generator (undisclosed) (2026/06/26)  
+- [PXEServer](https://github.com/Albert0i/PXEServer) - Database Stack on Debian 13 with Docker (2026/07/10)
+- [Building an Observability Stack with Docker Compose: Understanding Prometheus, Grafana, and Database Exporters](https://github.com/Albert0i/PXEServer/blob/main/README.Cont.md) - (2026/07/17)
+- [CopyTable](https://github.com/Albert0i/CopyTable) - A Practitioner’s Sweat and Tears in Data Migration (2026/07/31)
+- [Oracle Database XE 21c with Docker](https://github.com/Albert0i/XE21c) - (2026/08/28)
+- [Oracle Database XE 21c with Docker (Cont)](https://github.com/Albert0i/XE21c/blob/main/README.Cont.md) - (2026/08/28)
+- FlashWin26H2 - Portable version of Windows 11 26H2. (TBD) 
+
+
 
 ### EOF (2026/08/28)
