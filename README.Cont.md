@@ -391,24 +391,38 @@ config:
 
 
 #### VI. Let’s get started!
-Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change into the folder. 
+Clone the repositry from [here](https://github.com/Albert0i/XE21c.git) and change to the `XE21c` folder. 
 ```
 cp dotenv .env 
 
 make prune
 ```
+
+All available functions: 
 ![alt make](img/make-cont.png)
 
-![alt make up ps](img/make-cont-up-ps.png)
+Start the whole stack:
+![alt make up](img/make-cont-up.png)
 
+Check running containers: 
+![alt make ps](img/make-cont-ps.png)
+
+[Grafana](https://grafana.com/) Dashboards: 
 ![alt grafana-1](img/grafana-1.png)
 
+Dashboard for [Nginx](https://nginx.org/): 
 ![alt grafana-2](img/grafana-2.png)
 
+Dashboard for Oracle: 
+![alt grafana-1](img/grafana-1.png)
+
+API Gateway: 
 ![alt api-gateway-1](img/api-gateway-1.png)
 
+RESTful API: 
 ![alt api-gateway-2](img/api-gateway-2.png)
 
+SQL Direct API:
 ![alt api-gateway-3](img/api-gateway-3.png)
 
 
@@ -558,7 +572,7 @@ Mon Ami, our journey begins with Docker and ends with Docker. Problem‑solving 
 - [The Road Not Taken](https://github.com/Albert0i/The-Road-Not-Taken) - A Quest for Desktop Replacements (2026/04/01)
 - [一個人的戰爭](https://github.com/Albert0i/The-Road-Not-Taken/blob/main/README-Cont.md) - Sequel to “The Feather of Chromebook” (2026/04/17)
 - [726 Investigation Report](https://github.com/Albert0i/The-Road-Not-Taken/blob/main/README-Cont2.md) - Sequel to “The Touch of Vintage” (2026/05/29)
-- redaction - Redaction Script Generator (undisclosed) (2026/06/26)  
+- redaction - Redaction Script Generator (**undisclosed**) (2026/06/26)  
 - [PXEServer](https://github.com/Albert0i/PXEServer) - Database Stack on Debian 13 with Docker (2026/07/10)
 - [Building an Observability Stack with Docker Compose: Understanding Prometheus, Grafana, and Database Exporters](https://github.com/Albert0i/PXEServer/blob/main/README.Cont.md) - (2026/07/17)
 - [CopyTable](https://github.com/Albert0i/CopyTable) - A Practitioner’s Sweat and Tears in Data Migration (2026/07/31)
