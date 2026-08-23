@@ -151,20 +151,3 @@ services:
     depends_on:
       - api-gateway-load-balancer
     restart: always
-
-  # DBeaver
-  dbeaver:
-    image: dbeaver/cloudbeaver:latest
-    container_name: dbeaver-web
-    ports:
-      - "8979:8978"
-    volumes:
-      # FOLDER CREATION: Docker automatically generates './data/dbeaver_data' on your host.
-      # PERMISSIONS: Auto-mapped on Windows/Mac. CloudBeaver runs internally as UID 1001.
-      # LINUX FIX: If the app crashes with a write-permission block on Linux, run:
-      # sudo mkdir -p ./dbeaver_data && sudo chown -R 1001:1001 ./dbeaver_data
-      - ./data/dbeaver_data:/opt/cloudbeaver/workspace
-    depends_on:
-      oracle-db:
-        condition: service_healthy
-    restart: always

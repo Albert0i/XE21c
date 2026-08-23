@@ -5,6 +5,7 @@
 oracle_data/
 prometheus_data/
 grafana_data/
+dbeaver_data/
 
 # Ignore Node.js dependencies
 node_modules/

@@ -45,32 +45,9 @@ help:
 	@echo "  config     edit configuration"
 	@echo " "
 
-# up:
-# 	@mkdir -p $(ORACLE_DATA_DIR)
-# 	$(COMPOSE) up -d --remove-orphans
 up:
+	@mkdir -p $(ORACLE_DATA_DIR)
 	$(COMPOSE) up -d --remove-orphans
-	@echo ""
-	@echo "┌────────────────────────────────────────────────────────────────────────┐"
-	@echo "│ 🚀 Oracle Database & client are running active                         │"
-	@echo "├────────────────────────────────────────────────────────────────────────┤"
-	@echo "│                                                                        │"
-	@echo "│ 🌐 1. Oracle Database Manager (DBeaver / CloudBeaver)                  │"
-	@echo "│    👉 URL:        http://localhost:8979                                │"
-	@echo "│    👉 DB Host:    ${ORACLE_HOST}                                            │"
-	@echo "│    👉 DB Port:    ${ORACLE_PORT}                                                 │"
-	@echo "│    👉 DB Name:    ${ORACLE_DATABASE}                                                │"	
-	@echo "│                                                                        │"
-	@echo "│ 🌐 2. API Gateway                                                      │"
-	@echo "│    👉 URL:        http://localhost:${API_PORT}                                │"
-	@echo "│                                                                        │"
-	@echo "│ 🌐 3. Grafana Dashboards                                               │"
-	@echo "│    👉 URL:        http://localhost:8080/dashboards                     │"
-	@echo "│                                                                        │"
-	@echo "│ 🌐 4. Prometheus Backend                                               │"
-	@echo "│    👉 URL:        http://localhost:9091/targets                        │"
-	@echo "│                                                                        │"	
-	@echo "└────────────────────────────────────────────────────────────────────────┘"
 
 down:
 	$(COMPOSE) down -v
@@ -84,31 +61,16 @@ ps:
 logs:
 	$(COMPOSE) logs -f
 
-# prune:
-# 	@echo "⚠️ Warning: Clearing data directories, volumes, and monitoring logs..."
-# 	$(COMPOSE) down -v
-# 	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data || true
-	
-# 	@echo "🛠️ Re-creating clean local directories..."
-# 	mkdir -p $(ORACLE_DATA_DIR) ./prometheus_data ./grafana_data
-	
-# 	@echo "🔒 Setting secure ownership and permission boundaries..."
-# 	sudo chown -R 54321:54321 $(ORACLE_DATA_DIR)
-# 	chown -R $$USER:$$USER ./grafana_data ./prometheus_data
-# 	chmod 755 ./grafana_data ./prometheus_data
-# 	@echo "✨ Prune completed successfully! Environment is fresh and clean."
 prune:
 	@echo "⚠️ Warning: Clearing data directories, volumes, and monitoring logs..."
 	$(COMPOSE) down -v
-	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data dbeaver_data || true
+	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data || true
 	
 	@echo "🛠️ Re-creating clean local directories..."
 	mkdir -p $(ORACLE_DATA_DIR) ./prometheus_data ./grafana_data
-	sudo mkdir -p ./dbeaver_data
 	
 	@echo "🔒 Setting secure ownership and permission boundaries..."
 	sudo chown -R 54321:54321 $(ORACLE_DATA_DIR)
-	sudo chown -R 1001:1001 ./dbeaver_data
 	chown -R $$USER:$$USER ./grafana_data ./prometheus_data
 	chmod 755 ./grafana_data ./prometheus_data
 	@echo "✨ Prune completed successfully! Environment is fresh and clean."
