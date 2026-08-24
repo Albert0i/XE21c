@@ -87,31 +87,41 @@ logs:
 # prune:
 # 	@echo "⚠️ Warning: Clearing data directories, volumes, and monitoring logs..."
 # 	$(COMPOSE) down -v
-# 	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data || true
+# 	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data dbeaver_data || true
 	
 # 	@echo "🛠️ Re-creating clean local directories..."
 # 	mkdir -p $(ORACLE_DATA_DIR) ./prometheus_data ./grafana_data
+# 	sudo mkdir -p ./dbeaver_data
 	
 # 	@echo "🔒 Setting secure ownership and permission boundaries..."
 # 	sudo chown -R 54321:54321 $(ORACLE_DATA_DIR)
+# 	sudo chown -R 1001:1001 ./dbeaver_data
 # 	chown -R $$USER:$$USER ./grafana_data ./prometheus_data
 # 	chmod 755 ./grafana_data ./prometheus_data
 # 	@echo "✨ Prune completed successfully! Environment is fresh and clean."
 prune:
-	@echo "⚠️ Warning: Clearing data directories, volumes, and monitoring logs..."
+	@echo "⚠️ Warning: Clearing entire data directory, volumes, and monitoring logs..."
 	$(COMPOSE) down -v
-	sudo rm -rf $(ORACLE_DATA_DIR) grafana_data prometheus_data dbeaver_data || true
+	
+	# 1. Nuke the entire data folder cleanly
+	sudo rm -rf ./data || true
 	
 	@echo "🛠️ Re-creating clean local directories..."
-	mkdir -p $(ORACLE_DATA_DIR) ./prometheus_data ./grafana_data
-	sudo mkdir -p ./dbeaver_data
+	# 2. Re-create the structure safely under your normal user profile
+	mkdir -p $(ORACLE_DATA_DIR) ./data/prometheus_data ./data/grafana_data ./data/dbeaver_data
 	
 	@echo "🔒 Setting secure ownership and permission boundaries..."
-	sudo chown -R 54321:54321 $(ORACLE_DATA_DIR)
-	sudo chown -R 1001:1001 ./dbeaver_data
-	chown -R $$USER:$$USER ./grafana_data ./prometheus_data
-	chmod 755 ./grafana_data ./prometheus_data
+	# 3. Critical: Align host permissions with internal container UIDs
+	sudo chown -R 54321:54321 ./data/oracle_data
+	sudo chown -R 1001:1001 ./data/dbeaver_data
+	
+	# 4. Enforce standard read/write permissions for monitoring tools
+	chmod 755 ./data/grafana_data ./data/prometheus_data
 	@echo "✨ Prune completed successfully! Environment is fresh and clean."
+
+	# 5.Verifying directory permissions...
+	@echo "📊 Verifying directory permissions..."
+	tree -ugp ./data
 
 test:
 	@echo "Checking Oracle container health and system user credentials..."

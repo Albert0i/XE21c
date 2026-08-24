@@ -33,7 +33,7 @@ ORACLE_CONTAINER_NAME=oracle-db
 # 4. DATA STORAGE REPOSITORY
 # Folder location on your hard drive to permanently save schemas.
 # Keeps your data safe from erasure when containers reboot.
-ORACLE_DATA_DIR=./oracle_data
+ORACLE_DATA_DIR=./data/oracle_data
 
 # 5. APPLICATION USER
 # Non-admin account for your apps to connect safely.
