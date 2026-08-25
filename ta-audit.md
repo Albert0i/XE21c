@@ -16,6 +16,26 @@ TASTATUS          TATIMES           TAUNSIGN      TAUSERS
 #### II. Deployment: Add Columns  
 
 ```
+ALTER TABLE DCDEVDTA.TACARTITEMS       ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TACARTITEMS_LOG   ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TACARTS           ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TACONTRACTS       ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TACREASONS        ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TACRESULTS        ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TACTYPES          ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TADAYS            ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+
+ALTER TABLE DCDEVDTA.TAFAMILY          ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TANOTES           ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TAOPTIONS         ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TASKS             ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TASTATUS          ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TATIMES           ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TAUNSIGN          ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+ALTER TABLE DCDEVDTA.TAUSERS           ADD (updatedAt TIMESTAMP, createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL);
+```
+
+```
 ALTER TABLE DCDEVDTA.TACARTITEMS       ADD (createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt TIMESTAMP);
 ALTER TABLE DCDEVDTA.TACARTITEMS_LOG   ADD (createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt TIMESTAMP);
 ALTER TABLE DCDEVDTA.TACARTS           ADD (createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt TIMESTAMP);
@@ -45,9 +65,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACARTITEMS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -58,9 +80,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACARTITEMS_LOG
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -71,9 +95,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACARTS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -84,9 +110,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACONTRACTS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -97,9 +125,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACREASONS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -110,9 +140,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACRESULTS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -123,9 +155,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TACTYPES
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -136,9 +170,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TADAYS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -149,9 +185,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TAFAMILY
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -162,9 +200,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TANOTES
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -175,9 +215,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TAOPTIONS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -188,9 +230,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TASKS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -201,9 +245,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TASTATUS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -214,9 +260,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TATIMES
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -227,9 +275,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TAUNSIGN
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
@@ -240,9 +290,11 @@ BEFORE INSERT OR UPDATE ON DCDEVDTA.TAUSERS
 FOR EACH ROW
 BEGIN
   IF INSERTING THEN
+    -- Set createdAt only once, leave updatedAt null
     :NEW.createdAt := COALESCE(:NEW.createdAt, CURRENT_TIMESTAMP);
-    :NEW.updatedAt := CURRENT_TIMESTAMP;
+    :NEW.updatedAt := NULL;
   ELSIF UPDATING THEN
+    -- Refresh updatedAt, do not touch createdAt
     :NEW.updatedAt := CURRENT_TIMESTAMP;
   END IF;
 END;
