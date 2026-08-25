@@ -1,5 +1,12 @@
 ### TA Audit – Adding Timestamp Fields and Triggers in DCDEVDTA
 
+```
+In tables deep the timestamps lie,
+Created once, they never die.
+Updated marks the shifting sand,
+A record kept by trigger’s hand.
+```
+
 
 #### I. Project Description  
 This project injects two audit fields — `createdAt` and `updatedAt` for all `TA` tables — into the schema `DCDEVDTA`. These fields will automatically record when a row is created and when it is last updated. To enforce this behavior consistently across multiple tables, we will add the fields, create triggers to maintain them, and prepare rollback scripts to remove them if necessary.  
@@ -342,13 +349,48 @@ ALTER TABLE DCDEVDTA.TAUSERS           DROP COLUMN createdAt;
 ALTER TABLE DCDEVDTA.TAUSERS           DROP COLUMN updatedAt;
 ```
 
+#### V. Filtering Updated Rows
+Once the audit triggers are in place, you can easily query which rows have been updated by checking the `updatedAt` field.  
 
-#### V. Summary  
+1. **Querying Which Rows Are Updated**
+This returns all rows where `updatedAt` has been set (i.e., not `NULL`):  
+
+```sql
+SELECT *
+FROM DCDEVDTA.TACARTITEMS
+WHERE updatedAt IS NOT NULL;
+```
+
+2. **Querying Updated Rows by Date Range** 
+This filters rows updated within a specific time window. For example, to find rows updated between **August 1, 2026** and **August 15, 2026**:  
+
+```sql
+SELECT *
+FROM DCDEVDTA.TACARTITEMS
+WHERE updatedAt BETWEEN TO_TIMESTAMP('2026-08-01 00:00:00','YYYY-MM-DD HH24:MI:SS')
+                    AND TO_TIMESTAMP('2026-08-31 23:59:59','YYYY-MM-DD HH24:MI:SS');
+```
+
+- `BETWEEN` checks inclusively for values in the given range.  
+- `TO_TIMESTAMP` ensures the string is interpreted as a proper timestamp.  
+- Adjust the date/time values to match your reporting needs.  
+
+With these queries, you can quickly identify which rows have been modified and when, making it straightforward to audit changes across your TA tables.  
+
+
+#### VI. Summary  
 The TA Audit Enhancement Project strengthens data integrity across 18 critical tables in the `DCDEVDTA` schema by introducing standardized audit fields (`createdAt`, `updatedAt`) and automated triggers to maintain them. This ensures every record consistently captures when it was created and last modified, improving traceability and compliance.  
 
 The deployment plan provides scripts to add columns and create triggers, while the rollback plan offers a safe path to remove them if needed. By using consistent naming conventions and scripting both forward and backward changes, the project guarantees maintainability, reversibility, and minimal disruption.  
 
 In short, this enhancement delivers a unified, reliable audit mechanism across all TA tables, enabling better monitoring, reporting, and long‑term system accountability.  
 
+```
+No manual hand need set the time,
+The trigger guards with code sublime.
+Each row now speaks of when it grew,
+And when its fate was shaped anew.
+```
 
-### EOF (2026/08/24)
+
+### EOF (2026/08/25)
