@@ -2,9 +2,10 @@
 
 ![alt Objection.js + Knex.js](img/Copilot_20260825_164654.png)
 
+
 #### 1. Introduction
 
-When you build Node.js applications that interact with relational databases, you often face a choice between raw SQL and ORM frameworks. For Oracle, the ecosystem is smaller than for PostgreSQL or MySQL, but **Knex.js** and **Objection.js** together form a powerful, flexible, and JavaScript‑friendly stack.
+When you build Node.js applications that interact with relational databases, you often face a choice between raw SQL and ORM frameworks. For Oracle, the ecosystem is smaller than for PostgreSQL or MySQL, but [Knex.js](https://knexjs.org/) and [Objection.js](https://vincit.github.io/objection.js/) together form a powerful, flexible, and JavaScript‑friendly stack.
 
 This guide walks you through creating a **Todo List** app using Oracle, Knex.js, and Objection.js — all written in **ES6 import syntax**. You’ll learn how to connect to Oracle, define models, run migrations, seed data, and query your database elegantly.
 
@@ -484,4 +485,4 @@ Your `todo_list` table becomes a playground for experimenting with inserts, quer
 ![alt visual workflow diagram](img/Copilot_20260825_165857.png)
 
 
-### EOF (2026/08/25)
+### EOF (2026/08/28)
