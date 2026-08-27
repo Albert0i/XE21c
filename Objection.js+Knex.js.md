@@ -485,6 +485,29 @@ Your `todo_list` table becomes a playground for experimenting with inserts, quer
 ![alt visual workflow diagram](img/Copilot_20260825_165857.png)
 
 
+#### 21. Bibliography
+
+1. **Objection.js Documentation**  
+   Objection.js official guide and API reference.  
+   *Available at:* `https://vincit.github.io/objection.js` [(vincit.github.io in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fvincit.github.io%2Fobjection.js")
+
+2. **Knex.js Documentation**  
+   Knex.js query builder reference and migration system.  
+   *Available at:* [https://knexjs.org](https://knexjs.org)
+
+3. **Prisma Documentation**  
+   Prisma schema, client API, and migration tooling.  
+   *Available at:* [https://www.prisma.io/docs](https://www.prisma.io/docs)
+
+4. **node-oracledb Driver**  
+   Oracle Database driver for Node.js, required for Knex Oracle support.  
+   *Available at:* `https://oracle.github.io/node-oracledb` [(oracle.github.io in Bing)](https://www.bing.com/search?q="https%3A%2F%2Foracle.github.io%2Fnode-oracledb")
+
+5. **Comparative Articles**  
+   - “Choosing Between Prisma and Objection.js” – Developer community discussions on ORM trade‑offs.  
+   - “Knex.js vs Prisma: SQL Flexibility vs Type Safety” – Blog posts highlighting practical differences.
+
+
 #### Appendix: Objection.js + Knex.js vs Prisma
 
 | Feature | **Objection.js + Knex.js** | **Prisma** |
