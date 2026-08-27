@@ -484,27 +484,8 @@ Your `todo_list` table becomes a playground for experimenting with inserts, quer
 
 ![alt visual workflow diagram](img/Copilot_20260825_165857.png)
 
-#### Appendix: Objection.js + Knex.js vs Prisma 
 
-| Feature | **Objection.js + Knex.js** | **Prisma** |
-| --- | --- | --- |
-| **Oracle Support** | ✅ Works via Knex + ``node-oracledb`` driver | ❌ Not supported |
-| **Language Orientation** | ✅ Pure JavaScript (no TypeScript required) | ⚠️ TypeScript‑first (JS possible but limited) |
-| **Philosophy** | Query builder + lightweight ORM | Schema‑first, declarative ORM |
-| **Schema Definition** | Models as JS classes | ``.prisma`` schema file |
-| **Type Safety** | Minimal in JS (no TS types) | Excellent in TS, weaker in JS |
-| **Migrations** | Knex migration system (manual, flexible) | Prisma Migrate (integrated, declarative) |
-| **Querying Style** | SQL‑like via Knex, flexible | Abstracted, fluent API |
-| **Performance** | Very good, close to raw SQL | Excellent, optimized client |
-| **Community & Ecosystem** | Strong in JS/Knex world | Rapidly growing, TS‑heavy |
-| **Learning Curve** | Moderate (SQL familiarity helps) | Lower for TS devs, higher for JS‑only |
-| **Best Use Case** | JS‑only projects needing Oracle support | Modern TS projects with PostgreSQL/MySQL/etc. |
-
-Here’s an **appendix table** you can add to your tutorial that compares **Objection.js + Knex.js** with **Prisma** comprehensively. This gives readers a clear side‑by‑side view of trade‑offs:
-
----
-
-## 📎 Appendix: Objection.js + Knex.js vs Prisma
+#### Appendix: Objection.js + Knex.js vs Prisma
 
 | Feature | **Objection.js + Knex.js** | **Prisma** |
 |---------|-----------------------------|------------|
